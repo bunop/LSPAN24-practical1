@@ -1,0 +1,55 @@
+---
+title: "Handling different data types, quality checking and preparing data files"
+author: "Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio"
+format: 
+  revealjs:
+    footer: "Livestock pangenomes 2024 - Practical 1 - 2024/07/22"
+---
+
+## Introduction to Conda
+
+-   [Conda](https://docs.anaconda.com/anaconda/install/): A package manager and environment management system for installing and managing software packages and dependencies, particularly for Python and R.
+
+::: incremental
+-   [Miniconda](https://docs.anaconda.com/miniconda/): A minimal installer for Conda that includes Conda, Python, and other essential packages.
+-   [Mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html): A faster, drop-in replacement for Conda. You can swap almost all commands between `conda` & `mamba`
+:::
+
+::: notes
+Conda: has navigators, softwares for installing packages using GUI and editors like spyder, jupyter notebook, etc. Suggested on local machines. Miniconda: is a lightweight version of Conda, suggested on servers or where the GUI is not available. Mamba: implemented the package resolvers in C++ and is faster than Conda. However conda has introduced a new package resolver last year. It has some additional features like `repoquery`.
+:::
+
+## Create an environment (from scratch)
+
+We use `conda` command to manage environments with `conda` / `miniconda`:
+
+-   replace with `mamba` if you have `mamba` installed.
+-   `--name`: required to specify the name of the environment.
+-   specifying versions helps the package resolver
+
+``` {.bash code-line-numbers="1-2|4-5|7-8"}
+# create an empty environment
+conda create --name empty
+
+# create an environment with some software
+conda create --name python python ipython
+
+# create an environment with a specific software version
+conda create --name python3.10 python=3.10 ipython=8.25
+```
+
+## Create an environment (from file)
+
+We can also create an environment from a file. Note the `env` before the `create` command:
+
+-   `--file`: specify the file containing the environment specifications
+-   `--name`: override the name of the environment in the file
+
+``` {.bash code-line-numbers="1-2"}
+# create an environment from a file
+conda env create --file environment.yml
+```
+
+::: notes
+without the `--file` option, the current `environment.yml` file will be used.
+:::
