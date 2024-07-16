@@ -3,8 +3,22 @@ title: "Handling different data types, quality checking and preparing data files
 author: "Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio"
 format: 
   revealjs:
+    chalkboard: true
     footer: "Livestock pangenomes 2024 - Practical 1 - 2024/07/22"
 ---
+
+## Introduction to virtual environment
+
+Something on virtual environments in general. Then introduce conda and mamba.
+
+-   Python: virtualenv, pyenv, poetry
+-   R: packrat, renv
+-   perl: perlbrew, local::lib
+-   Ruby: rvm
+
+::: notes
+something on reproducibility and the need for virtual environments.
+:::
 
 ## Introduction to Conda
 
@@ -16,6 +30,7 @@ format:
 :::
 
 ::: notes
+conda to install dependencies and softwares
 Conda: has navigators, softwares for installing packages using GUI and editors like spyder, jupyter notebook, etc. Suggested on local machines. Miniconda: is a lightweight version of Conda, suggested on servers or where the GUI is not available. Mamba: implemented the package resolvers in C++ and is faster than Conda. However conda has introduced a new package resolver last year. It has some additional features like `repoquery`.
 :::
 
@@ -52,4 +67,73 @@ conda env create --file environment.yml
 
 ::: notes
 without the `--file` option, the current `environment.yml` file will be used.
+:::
+
+## List and activate environments
+
+-   `conda env list`: list all environments
+-   `conda activate <env_name>`: activate an environment
+
+Normally the prompt will change to show the active environment. Default installation
+have the `base` environment active at login
+
+```bash
+(base) paolo@bullseye-laptop:~$ conda activate ognigenoma
+(ognigenoma) paolo@bullseye-laptop:~$
+```
+
+## Channels and repositories
+
+-   `defaults`: the default channel for conda packages
+-   `bioconda`: a channel for bioinformatics software
+-   `R`: a channel for R packages
+-   `conda-forge`: a community-driven collection of conda packages
+
+``` {.bash code-line-numbers="1-2"}
+# add a channel to the list of channels
+conda config --add channels conda-forge
+
+# add a channel to the list of channels
+conda config --add channels bioconda
+```
+
+## Search for packages
+
+## Install packages
+
+*   `conda install`: install packages in the active environment
+    +   `--name`: specify the environment to install the package
+    +   `--file`: specify a file with the list of packages to install
+
+``` {.bash code-line-numbers="1-2|4-5|7-8"}
+# install a package in the active environment
+conda install pandas
+
+# install a package in a specific environment
+conda install --name python3.10 pandas
+
+# install packages from a file in the active environment
+conda install --file requirements.txt
+```
+
+## Exporting an environment
+
+-   `conda env export`: export the environment to a file
+-   `--name`: specify the environment to export
+-   `--file`: specify the file to export the environment to
+-   `--no-builds`: exclude the build string from the exported file
+
+``` {.bash code-line-numbers="1-2|4-5|7-8"}
+# export the active environment to a file (using STDOUT)
+conda env export > environment.yml
+
+# export a specific environment to a file
+conda env export --name python3.10 > environment.yml
+
+# export a specific environment to a specific file
+conda env export --name python3.10 --file environment.yml
+```
+
+::: notes
+does people know STDOUT/STDERR/STDIN?
 :::
