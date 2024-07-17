@@ -7,13 +7,36 @@ format:
     footer: "Livestock pangenomes 2024 - Practical 1 - 2024/07/22"
 ---
 
+## Practical introduction
+
+To follow this and other practicals, a working *NIX environment is required. 
+We suggest to use a Linux distribution, MacOS or Windows with
+[WSL2](https://learn.microsoft.com/en-us/windows/wsl/about).
+
+If you don't have a working environment, you can use [GitPod](https://www.gitpod.io/),
+a cloud-based IDE that allows you to work on your projects from anywhere:
+
+*   A [GitHub](https://github.com/) account to manage authentication. 
+*   A [Linkedin](https://www.linkedin.com/) account to get access to 50 hours of 
+    free usage per month.
+
+## Introduction to GitPod
+
+![](img/gitpod_home.png){.r-stretch}
+
+## Link your GitHub account to GitPod (recommended)
+
+## GitPod workspaces
+
+## GitPod pricing plans
+
 ## Introduction to virtual environment
 
 Something on virtual environments in general. Then introduce conda and mamba.
 
 -   Python: virtualenv, pyenv, poetry
 -   R: packrat, renv
--   perl: perlbrew, local::lib
+-   Perl: perlbrew, local::lib
 -   Ruby: rvm
 
 ::: notes
@@ -105,14 +128,15 @@ conda config --add channels bioconda
     +   `--name`: specify the environment to install the package
     +   `--file`: specify a file with the list of packages to install
 
-``` {.bash code-line-numbers="1-2|4-5|7-8"}
+``` {.bash code-line-numbers="1-2|4-5|7-9"}
 # install a package in the active environment
 conda install pandas
 
 # install a package in a specific environment
 conda install --name python3.10 pandas
 
-# install packages from a file in the active environment
+# install packages from a file in the active environment 
+# (python format)
 conda install --file requirements.txt
 ```
 
@@ -136,4 +160,14 @@ conda env export --name python3.10 --file environment.yml
 
 ::: notes
 does people know STDOUT/STDERR/STDIN?
+:::
+
+## Some tips
+
+::: incremental
+-   `conda list`: list all packages installed in the active environment
+-   Install packages with versions: `conda install pandas=1.3.3`
+-   Create environments by scope: don't pull all packages in the same environment
+-   Limit the `conda-forge` channel usage if possible
+-   `conda list --revision`: list all revisions of the environment
 :::
