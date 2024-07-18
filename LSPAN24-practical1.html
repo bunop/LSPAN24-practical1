@@ -8,7 +8,7 @@
 <link href="LSPAN24-practical1_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="LSPAN24-practical1_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="LSPAN24-practical1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.54">
+  <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio">
   <title>Handling different data types, quality checking and preparing data files</title>
@@ -96,6 +96,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="LSPAN24-practical1_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="styles.css">
   <link href="LSPAN24-practical1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="LSPAN24-practical1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="LSPAN24-practical1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -722,12 +723,244 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <div>
 <ul>
 <li class="fragment"><code>~</code>: expands to the home directory (<code>cd ~</code>, <code>cd ~/data</code>)</li>
-<li class="fragment"><code>$</code>: expands to the value of the variable (<code>echo $HOME</code>, <code>echo $PWD</code>)</li>
+<li class="fragment"><code>$</code>: refers to an environment variable (<code>echo $HOME</code>, <code>echo $PWD</code>)</li>
 <li class="fragment"><code>;</code>: separates commands in one line (execute commands with this order e.g.&nbsp; <code>cd /tmp; ls</code> first change to <code>/tmp</code> then list files)</li>
 <li class="fragment"><code>\</code>: escapes the next character (<code>ls file\ with\ spaces.txt</code>)</li>
 </ul>
 </div>
 </section>
+<section id="file-permissions" class="slide level2 smaller">
+<h2>File Permissions</h2>
+<p>Each file has three types of permissions: <strong>read</strong>, <strong>write</strong>, and <strong>execute</strong>. These permissions are set for three types of users: <strong>owner</strong>, <strong>group</strong>, and <strong>others</strong>.</p>
+<div>
+<ul>
+<li class="fragment"><code>r</code>: read permission</li>
+<li class="fragment"><code>w</code>: write permission</li>
+<li class="fragment"><code>x</code>: execute permission</li>
+<li class="fragment"><code>-</code>: no permission</li>
+</ul>
+</div>
+<div class="fragment">
+<p>You can inspect permissions using <code>ls -l</code>, near the file name. For example, <code>rwxr-xr--</code> means:</p>
+<ul>
+<li>Owner has read, write, and execute permissions.</li>
+<li>Group has read and execute permissions.</li>
+<li>Others have only read permission.</li>
+</ul>
+</div>
+</section>
+<section id="change-file-permissions-ugo" class="slide level2 smaller">
+<h2>Change File Permissions (UGO)</h2>
+<p>You can change file permissions using <code>chmod</code> command. The general syntax is:</p>
+<p><code>chmod [options] mode file</code></p>
+<p>where <code>mode</code> can be:</p>
+<div>
+<ul>
+<li class="fragment"><code>u</code>: user (owner)</li>
+<li class="fragment"><code>g</code>: group</li>
+<li class="fragment"><code>o</code>: others</li>
+<li class="fragment"><code>a</code>: all (u, g, o)</li>
+<li class="fragment"><code>+</code>: add permission</li>
+<li class="fragment"><code>-</code>: remove permission</li>
+<li class="fragment"><code>=</code>: set permission</li>
+</ul>
+</div>
+<div class="fragment">
+<p>For example, to give execute permission to the owner of a file:</p>
+<p><code>chmod u+x file</code></p>
+</div>
+</section>
+<section id="stdin-stdout-stderr" class="slide level2 smaller">
+<h2>Stdin, Stdout, Stderr</h2>
+<p>Every process in Unix has three standard streams:</p>
+<div>
+<ul>
+<li class="fragment"><strong>Standard Input (stdin)</strong>: Input from the keyboard or another process.</li>
+<li class="fragment"><strong>Standard Output (stdout)</strong>: Output to the terminal or another process.</li>
+<li class="fragment"><strong>Standard Error (stderr)</strong>: Error messages to the terminal or another process.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>By default, stdin is the keyboard, and stdout and stderr are the terminal. You can redirect these streams:</p>
+<div>
+<ul>
+<li class="fragment"><code>&gt;</code>: Redirect stdout to a file (<code>ls &gt; files.txt</code>)</li>
+<li class="fragment"><code>&gt;&gt;</code>: Append stdout to a file (<code>ls &gt;&gt; files.txt</code>)</li>
+<li class="fragment"><code>2&gt;</code>: Redirect stderr to a file (<code>ls non_existent_file 2&gt; errors.txt</code>)</li>
+<li class="fragment"><code>&amp;&gt;</code>: Redirect both stdout and stderr to a file (<code>ls non_existent_file &amp;&gt; output.txt</code>). Its equivalent to <code>&gt; output.txt 2&gt;&amp;1</code></li>
+<li class="fragment"><code>&lt;</code>: Redirect stdin from a file (<code>wc -l &lt; files.txt</code>)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="pipes" class="slide level2 smaller">
+<h2>Pipes</h2>
+<p>Pipes (<code>|</code>) connect the stdout of one command to the stdin of another. For example:</p>
+<p><code>ls -l | wc -l</code></p>
+<p>This command lists files in the current directory and counts the number of lines in the output.</p>
+<div class="fragment">
+<p>You can chain multiple commands using pipes:</p>
+<p><code>ls -l | grep myfile | wc -l</code></p>
+<p>This command lists files in the current directory, filters lines containing <code>myfile</code>, and counts the number of lines.</p>
+</div>
+</section>
+<section id="environment-variables" class="slide level2 smaller">
+<h2>Environment Variables</h2>
+<p>Environment variables are key-value pairs that store information about the environment. Some common environment variables:</p>
+<div>
+<ul>
+<li class="fragment"><code>HOME</code>: Home directory</li>
+<li class="fragment"><code>PATH</code>: List of directories to search for executable files</li>
+<li class="fragment"><code>PWD</code>: Present working directory</li>
+<li class="fragment"><code>OLDPWD</code>: Previous working directory</li>
+<li class="fragment"><code>USER</code>: Current user</li>
+<li class="fragment"><code>SHELL</code>: Current shell</li>
+</ul>
+</div>
+<div class="fragment">
+<p>You can access environment variables using <code>$</code>, for example <code>echo $HOME</code> prints the home directory (to <em>stdout</em>).</p>
+<p>You can use environment variables in scripts or commands, for example: <code>cd $HOME</code> or <code>cp $OLDPWD/file.txt .</code></p>
+</div>
+</section>
+<section id="aliases" class="slide level2 smaller">
+<h2>Aliases</h2>
+<p>Aliases are shortcuts for commands. You can define aliases in the shell configuration file (e.g.&nbsp;<code>~/.bashrc</code>). For example:</p>
+<p><code>alias ll='ls -l'</code></p>
+<p>This command creates an alias <code>ll</code> for <code>ls -l</code>. You can use <code>ll</code> instead of <code>ls -l</code>.</p>
+<div class="fragment">
+<p>You can list all aliases using <code>alias</code> command. To remove an alias, use <code>unalias</code> command:</p>
+<p><code>unalias ll</code></p>
+<h3 id="exercise">Exercise</h3>
+<p>How many <em>aliases</em> are defined in your terminal? How many commands do you know?</p>
+</div>
+</section>
+<section id="access-file-content" class="slide level2 smaller">
+<h2>Access file content</h2>
+<p>You can access the content of a file using <code>cat</code>, <code>less</code>, <code>more</code>, or <code>head</code> and <code>tail</code> commands.</p>
+<div>
+<ul>
+<li class="fragment"><code>cat</code>: Concatenate and display file content</li>
+<li class="fragment"><code>less</code>: Display file content page by page</li>
+<li class="fragment"><code>more</code>: Display file content page by page</li>
+<li class="fragment"><code>head</code>: Display the first lines of a file</li>
+<li class="fragment"><code>tail</code>: Display the last lines of a file</li>
+</ul>
+</div>
+<div class="fragment">
+<p>For example, to display the first 10 lines of a file:</p>
+<p><code>head file.txt</code></p>
+</div>
+</section>
+<section id="search-file-content" class="slide level2 smaller">
+<h2>Search file content</h2>
+<p>You can search for text in files using <code>grep</code> command. The general syntax is:</p>
+<p><code>grep [options] pattern file</code></p>
+<p>where <code>pattern</code> is the text to search for. For example:</p>
+<p><code>grep 'pattern' file.txt</code></p>
+<p>This command searches for <code>pattern</code> in <code>file.txt</code> and prints matching lines.</p>
+<div class="fragment">
+<p>You can use regular expressions in <code>grep</code> to search for more complex patterns. For example:</p>
+<p><code>grep -E 'pattern1|pattern2' file.txt</code></p>
+<p>This command searches for <code>pattern1</code> or <code>pattern2</code> in <code>file.txt</code>.</p>
+</div>
+</section>
+<section id="find-files" class="slide level2 smaller">
+<h2>Find files</h2>
+<p>You can find files in the filesystem using <code>find</code> command. The general syntax is:</p>
+<p><code>find [path] [options]</code></p>
+<p>where <code>path</code> is the directory to search in. For example:</p>
+<p><code>find /tmp -iname '*.txt'</code></p>
+<p>This command searches for files with <code>.txt</code> extension in <code>/tmp</code> directory. More options:</p>
+<div>
+<ul>
+<li class="fragment"><code>-name</code>: Search by exact name</li>
+<li class="fragment"><code>-type</code>: Search by file type (e.g.&nbsp;<code>f</code> for file, <code>d</code> for directory)</li>
+<li class="fragment"><code>-size</code>: Search by file size (<code>+</code> for larger, <code>-</code> for smaller. e.g.&nbsp;<code>+1M</code>)</li>
+<li class="fragment"><code>-exec</code>: Execute a command on found files (requires <code>{}</code> as a placeholder and <code>\;</code> at the end of the command)</li>
+</ul>
+</div>
+</section>
+<section id="utilities" class="slide level2 smaller">
+<h2>Utilities</h2>
+<p>There are many utilities available in Unix-like systems. Some common utilities:</p>
+<div>
+<ul>
+<li class="fragment"><code>awk</code>: A powerful text processing tool</li>
+<li class="fragment"><code>sed</code>: A stream editor for filtering and transforming text</li>
+<li class="fragment"><code>cut</code>: Extract columns from each line of files</li>
+<li class="fragment"><code>sort</code>: Sort lines of text files</li>
+<li class="fragment"><code>uniq</code>: Report or omit repeated lines</li>
+<li class="fragment"><code>wc</code>: Print newline, word, and byte counts for each file</li>
+<li class="fragment"><code>diff</code>: Compare files line by line</li>
+<li class="fragment"><code>file</code>: Determine file type</li>
+<li class="fragment"><code>du</code>: Estimate file space usage</li>
+<li class="fragment"><code>man</code>: Display manual pages</li>
+</ul>
+</div>
+</section>
+<section id="utilities-exercise" class="slide level2 smaller">
+<h2>Utilities exercise</h2>
+<ul>
+<li>List current directory contents using <code>ls</code> command and redirect the output to <code>files.txt</code>.</li>
+<li>Count the number of files in the current directory using <code>ls</code> and <code>wc</code> commands.</li>
+<li>Find all files with <code>.txt</code> extension in the current directory using <code>find</code> command.</li>
+<li>Display the first 5 lines of <code>files.txt</code> using <code>head</code> command.</li>
+<li>Rename <code>files.txt</code> to <code>all_files.txt</code> using <code>mv</code> command.</li>
+<li><code>ls</code> a non-existent file and redirect the error to <code>errors.txt</code>.</li>
+<li>Concatenate <code>all_files.txt</code> and <code>errors.txt</code> using <code>cat</code> command and redirect the output to <code>all_files_errors.txt</code>.</li>
+<li>Display manual pages for <code>bash</code> (<code>man bash</code>). Search for <code>Commands for Moving</code> section: How I can move to the beginning of the line? How I can move to the next word?</li>
+<li>GitPod users locate file <code>LSPAN24-practical1.qmd</code>, <code>grep</code> for <code>##</code> characters (mind <code>#</code> is a comment character), then order titles alphabetically using <code>sort</code></li>
+</ul>
+</section>
+<section id="curl-vs-wget" class="slide level2 smaller">
+<h2>Curl vs Wget</h2>
+<p><code>curl</code> and <code>wget</code> are command-line tools for transferring data with URLs. Some differences:</p>
+<div>
+<ul>
+<li class="fragment"><code>curl</code>: Supports multiple protocols (HTTP, HTTPS, FTP, etc.), more flexible, but less user-friendly.</li>
+<li class="fragment"><code>wget</code>: Supports HTTP and FTP, more user-friendly, but less flexible.</li>
+<li class="fragment"><code>curl</code> is more suitable for scripting and automation.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>You can use <code>curl</code> and <code>wget</code> to download files from the web. For example:</p>
+<p><code>curl -O https://example.com/file.txt</code></p>
+<p>This command downloads <code>file.txt</code> from <code>https://example.com</code> to the current directory.</p>
+</div>
+</section>
+<section id="compression" class="slide level2 smaller">
+<h2>Compression</h2>
+<p>You can compress and decompress files using <code>gzip</code>, <code>bzip2</code>, and <code>xz</code> commands. For example:</p>
+<p><code>gzip file.txt</code></p>
+<p>This command compresses <code>file.txt</code> to <code>file.txt.gz</code>. To decompress:</p>
+<p><code>gunzip file.txt.gz</code> (or <code>gzip -d file.txt.gz</code>)</p>
+<div class="fragment">
+<p>You can use <code>bzip2</code> and <code>xz</code> commands similarly. For example to compress:</p>
+<p><code>bzip2 file.txt</code></p>
+<p><code>xz file.txt</code></p>
+<p>To decompress:</p>
+<p><code>bunzip2 file.txt.bz2</code> (or <code>bzip2 -d file.txt.bz2</code>)</p>
+<p><code>unxz file.txt.xz</code> (or <code>xz -d file.txt.xz</code>)</p>
+</div>
+</section>
+<section id="tar" class="slide level2 smaller">
+<h2>Tar</h2>
+<p>You can create (<code>-c</code>) and extract (<code>-x</code>) tar archives using <code>tar</code> command. For example:</p>
+<p><code>tar -cvf archive.tar file1 file2</code></p>
+<p>This command creates <code>archive.tar</code> containing <code>file1</code> and <code>file2</code>. <strong>This archive is not compressed</strong> and have the same size of the sum of <code>file1</code> and <code>file2</code> sizes. To extract:</p>
+<p><code>tar -xvf archive.tar</code></p>
+<div class="fragment">
+<p>You can compress and extract compressed tar archives in one step. For example:</p>
+<p><code>tar -czvf archive.tar.gz file1 file2</code></p>
+<p>This command creates <code>archive.tar.gz</code> containing <code>file1</code> and <code>file2</code>. To extract:</p>
+<p><code>tar -xzvf archive.tar.gz</code></p>
+<p>Mind to the <code>z</code> option for gzip, <code>j</code> for bzip2, and <code>J</code> for xz. <code>f</code> need to be followed by the archive name.</p>
+</div>
+</section>
+<section id="tar-remember" class="slide level2 smaller">
+<h2>Tar (remember)</h2>
+
+<img data-src="https://programmerhumor.io/wp-content/uploads/2023/11/programmerhumor-io-programming-memes-4afd15c9908ddc5-758x809.jpg" class="r-stretch quarto-figure-center"><p class="caption">Credits <a href="https://programmerhumor.io/programming-memes/for-the-programmers-who-use-tar/">programmerhumor.io</a></p></section>
 <section id="introduction-to-virtual-environment" class="slide level2">
 <h2>Introduction to virtual environment</h2>
 <p>Something on virtual environments in general. Then introduce conda and mamba.</p>
