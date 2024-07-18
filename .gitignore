@@ -6,3 +6,5 @@
 /.quarto/
 *.html
 *_files/
+
+data/
