@@ -14,21 +14,109 @@ We suggest to use a Linux distribution, MacOS or Windows with
 [WSL2](https://learn.microsoft.com/en-us/windows/wsl/about).
 
 If you don't have a working environment, you can use [GitPod](https://www.gitpod.io/),
-a cloud-based IDE that allows you to work on your projects from anywhere:
+a cloud-based IDE that allows you to work on your projects from anywhere. We suggest:
 
 *   A [GitHub](https://github.com/) account to manage authentication. 
 *   A [Linkedin](https://www.linkedin.com/) account to get access to 50 hours of 
     free usage per month.
 
+::: notes
+Introducing GitPod: is not mandatory for the practicals, but it is a good way to
+work on the practicals without the need to install anything on your local machine.
+This can be useful if you have a slow internet connection, or if you are not allowed
+to install software on your machine.
+In the GitPod environment, we manage the software installation and the environment
+but you can install additional software if needed.
+:::
+
 ## Introduction to GitPod
 
-![](img/gitpod_home.png){.r-stretch}
+Go to <https://www.gitpod.io/> and select the **Try for free** button
+
+![](img/gitpod_home.png){fig-align="center" .r-stretch}
 
 ## Link your GitHub account to GitPod (recommended)
 
-## GitPod workspaces
+Add your *linkedin* account to get 50 hours of free usage per month
+
+![](img/gitpod_login.png){fig-align="center" .r-stretch}
+
+::: notes
+Select your preferred editor (VS code is recommened), 
+theme, and profile details, click continue and your 
+account will be created and ready to use.
+:::
 
 ## GitPod pricing plans
+
+![](img/gitpod_pricing.png){fig-align="center" .r-stretch}
+
+::: notes
+GitPod has a free tier that allows you to use the service for 50 hours per month.
+You don't need to provide any payment details to follow these practicals.
+:::
+
+See your resource usage at <https://gitpod.io/billing>
+
+## GitPod Workspaces
+
+<https://gitpod.io/workspaces>
+
+![](img/gitpod_workspace.png){fig-align="center" .r-stretch}
+
+::: notes
+A workspace is a cloud-based development environment that allows you to work on your
+projects from anywhere. You can create a workspace from a GitHub repository, or you
+can create an empty workspace and clone a repository from the terminal.
+Here you can see a list of your active workspaces, the status, the time of the last
+activity, and the instance size (if any).
+:::
+
+## Create a workspace
+
+![](img/gitpod_create_workspace.png){.r-stretch}
+
+::: notes
+when creating a workspace, you can select a repository from GitHub, the default
+editor and the instance size. If you use the *Large* instance, you will consume
+your free credits **faster**
+:::
+
+## VS Code in GitPod
+
+![](img/gitpod_vscode.png){fig-align="center" .r-stretch}
+
+Take a look at VS Code tutorial, for example [this one](https://www.youtube.com/watch?v=B-s71n0dHUk)
+
+::: notes
+Please note the 4 different sections of the VS Code interface: at the bottom is 
+the terminal, on the left is the file explorer, in the middle is the editor, and
+on the left-up corner is the hamburger menu that allows you to access the settings
+and the extensions.
+:::
+
+## Turning off Workspaces
+
+![](img/gitpod_stopworkspace.1.png){.absolute top=100 left=0 width="auto" height="500"}
+![](img/gitpod_stopworkspace.2.png){.absolute bottom=0 right=0 width="700" height="auto"}
+
+::: notes
+Remember to stop your workspace when you are not using it, to save your free credits.
+You can stop your current workspace by clicking on the hamburger menu fromn VScode 
+or from the hamburger menu in the workspace list
+:::
+
+## Workspaces lifecycle
+
+::: incremental
+*   Workspaces are automatically stopped after 30 minutes of inactivity or after
+    8 hours (using a free plan)
+    +   Only files and directories inside `/workspace` directory are preserved.
+*   Workspaces are deleted after **14 days**
+    +   remember to save your work
+*   Please see [Workspace Lifecycle](https://www.gitpod.io/docs/configure/workspaces/workspace-lifecycle)
+    for more information
+:::
 
 ## Introduction to virtual environment
 
