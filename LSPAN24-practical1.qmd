@@ -1,6 +1,7 @@
 ---
 title: "Handling different data types, quality checking and preparing data files"
 author: "Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio"
+css: styles.css
 format: 
   revealjs:
     chalkboard: true
