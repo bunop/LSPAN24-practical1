@@ -74,7 +74,10 @@ activity, and the instance size (if any).
 
 ## Create a workspace
 
-![](img/gitpod_create_workspace.png){.r-stretch}
+![](img/gitpod_create_workspace.png){fig-align="center" .r-stretch}
+
+Click [here](https://gitpod.io/#https://github.com/bunop/LSPAN24-practical1) 
+to create a new workspace for this project!
 
 ::: notes
 when creating a workspace, you can select a repository from GitHub, the default
@@ -106,6 +109,26 @@ You can stop your current workspace by clicking on the hamburger menu fromn VSco
 or from the hamburger menu in the workspace list
 :::
 
+## GitPod CLI
+
+You can install the [GitPod CLI ](https://www.gitpod.io/docs/references/gitpod-cli)
+to manage your workspaces from the terminal
+
+```{.bash}
+# login to GitPod
+gitpod login
+
+# list available workspaces
+gitpod workspace list
+
+# start a workspace
+gitpod workspace start <workspace ID>
+
+# open a linux terminal into workspace
+gitpod workspace ssh <workspace ID>
+```
+
+
 ## Workspaces lifecycle
 
 ::: incremental
@@ -114,9 +137,172 @@ or from the hamburger menu in the workspace list
     +   Only files and directories inside `/workspace` directory are preserved.
 *   Workspaces are deleted after **14 days**
     +   remember to save your work
-*   Please see [Workspace Lifecycle](https://www.gitpod.io/docs/configure/workspaces/workspace-lifecycle)
+*   Please see 
+    [Workspace Lifecycle](https://www.gitpod.io/docs/configure/workspaces/workspace-lifecycle)
     for more information
 :::
+
+## Using the Command Line
+
+For scientific computing, a command-line interface (CLI) is often essential.
+This means typing out commands instead of using a mouse.
+
+::: incremental
+*   Numerous tools are exclusively available as command-line utilities.
+*   Once familiar, the CLI can be faster and more precise.
+*   Tasks can be easily automated through scripting.
+*   High-performance computing (HPC) environments often rely solely on CLI access.
+:::
+
+## Filesystem Hierarchy {.smaller}
+
+::: columns
+
+::: {.column width="50%"}
+The filesystem is organized in a tree-like structure, with the root directory
+`/` at the top.
+
+::: incremental
+*   `/` is the root directory.
+*   `/home` contains user directories.
+*   `/usr` contains user programs.
+*   `/bin` contains essential binaries.
+*   `/etc` contains system configuration files.
+*   `/var` contains variable data.
+*   `/tmp` contains temporary files.
+*   `/workspace` specific to GitPod.
+:::
+
+:::
+
+::: {.column width="50%" .absolute top=200 right=0}
+![Dhanusha Dhananjaya, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/4/4b/Linux_file_system_foto_no_exif_%281%29.jpg){fig-width=100% fig-cap-location=bottom}
+:::
+
+:::
+
+## Absolute vs. Relative Paths {.smaller}
+
+::: incremental
+*   **Absolute paths** start from the root directory `/`.
+    +   e.g., `/`, `/home/user/file.txt`, `/home/user/data/`.
+*   **Relative paths** start from the current directory.
+    +   e.g., `file.txt`, `user/data/file.txt`.
+    +   `.` refers to the current directory (e.g., `./file.txt`)
+    +   `..` refers to the parent directory (e.g., `../file.txt`).
+        Can be chained multiple times (e.g., `../../file.txt`)
+:::
+
+. . .
+
+Consider this example:
+
+```{.txt}
+dir1/
+├── dir2
+│   └── file2
+└── file1
+```
+
+`../file1` is relative to `file2` current position (`dir2`)
+
+`../../dir1` is relative to `file2` current position (`dir2`)
+
+## Navigate the Filesystem {.smaller}
+
+Here are some basic commands to navigate the filesystem: each command can
+accept a **path** and **additional option(s)** as an argument. The general
+rule is:
+
+`command [option(s)] [path]`
+
+::: incremental
+*   `pwd`: Print current working directory (absolute path).
+*   `ls`: List files and directories.
+*   `cd`: Change directory.
+*   `mkdir`: Make directory.
+*   `rmdir`: Remove directory (safer).
+*   `touch`: Create an empty file - set the timestamp of a file to the current time.
+*   `rm`: Remove files.
+*   `mv`: Move or rename files.
+*   `cp`: Copy files.
+:::
+
+## `ls` useful options {.smaller}
+
+`ls` shows files and directories in the current directory. You can provide a
+**path** to list files in a different directory. Here are some useful options:
+
+*   `ls -l`: List files with details.
+*   `ls -a`: List all files, including hidden ones.
+*   `ls -lh`: List files with human-readable sizes.
+*   `ls -t`: List files by modification time.
+*   `ls -S`: List files by size.
+*   `ls -R`: List files recursively.
+*   `ls -r`: List files in reverse order.
+*   `ls -1`: List files in a single column.
+
+You can combine options, e.g., `ls -lhSr /home/user/data` to list files 
+in `/home/user/data` folder with *human-readable sizes*
+ordered by *size* in *ascending* order (bigger files on *bottom*).
+
+## Useful options for other commands {.smaller}
+
+*   Without a path:
+    +   `cd`: (without any arguments) change to **your home** directory
+    +   `cd -`: change to the previous directory
+*   With a path (*relative or absolute*)
+    +   `mkdir -p`: create a directory with its parents if they do not exist
+    +   `rm -r`: remove directories and their contents recursively (**use with caution**)
+    +   `rm -i`: prompt before removing files
+    +   `mv -i`: prompt before overwriting files
+    +   `cp -r`: copy directories and their contents recursively
+    +   `cp -i`: prompt before overwriting files
+
+. . .
+
+Can you guess the difference between `rm -r` and `rmdir`?
+
+## Navigate the Filesystem (exercise) {.smaller}
+
+1.  Open a terminal (if not yet open)
+2.  Print the current working directory
+3.  List the files and directories
+4.  Change to your *home* directory
+5.  Create a new directory called `mydir`
+6.  Change to the `mydir` directory
+7.  Create a new file called `myfile.txt`
+8.  List the files and directories
+9.  Move `myfile.txt` to the *home* directory
+10.  Remove the `mydir` directory
+11.  List the files and directories
+
+## Wildcards {.smaller}
+
+Wildcards are characters that help match file names based on patterns. Ex:
+
+::: incremental
+-   `*`: Matches any number of characters (`file*` matches `file1`, `file2`, `fileverylong` etc.)
+-   `?`: Matches a single character (`file?` matches `file1`, `file2`, but not `fileverylong`)
+-   `[ ]`: Matches any character within the brackets (`file[12]` matches `file1`, `file2`, but
+    not `file3` or `fileverylong`. `file[1-9]` to match file with any digit)
+-   `{ }`: Matches any of the comma-separated word (`file{1,2,verylong}` 
+    matches `file1`, `file2` and `fileverylong`)
+:::
+
+## Special characters
+
+Some characters have special meanings in the shell:
+
+::: incremental
+*   `~`: expands to the home directory (`cd ~`, `cd ~/data`)
+*   `$`: expands to the value of the variable (`echo $HOME`, `echo $PWD`)
+*   `;`: separates commands in one line (execute commands with this order e.g. 
+    `cd /tmp; ls` first change to `/tmp` then list files)
+*   `\`: escapes the next character (`ls file\ with\ spaces.txt`)
+:::
+
+
 
 ## Introduction to virtual environment
 
@@ -200,7 +386,7 @@ have the `base` environment active at login
 -   `R`: a channel for R packages
 -   `conda-forge`: a community-driven collection of conda packages
 
-``` {.bash code-line-numbers="1-2"}
+``` {.bash code-line-numbers="1-2|4-6"}
 # add a channel to the list of channels
 conda config --add channels conda-forge
 
