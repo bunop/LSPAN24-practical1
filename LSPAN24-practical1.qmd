@@ -296,13 +296,293 @@ Some characters have special meanings in the shell:
 
 ::: incremental
 *   `~`: expands to the home directory (`cd ~`, `cd ~/data`)
-*   `$`: expands to the value of the variable (`echo $HOME`, `echo $PWD`)
+*   `$`: refers to an environment variable (`echo $HOME`, `echo $PWD`)
 *   `;`: separates commands in one line (execute commands with this order e.g. 
     `cd /tmp; ls` first change to `/tmp` then list files)
 *   `\`: escapes the next character (`ls file\ with\ spaces.txt`)
 :::
 
+## File Permissions {.smaller}
 
+Each file has three types of permissions: **read**, **write**, and **execute**.
+These permissions are set for three types of users: **owner**, **group**, and **others**.
+
+::: incremental
+*   `r`: read permission
+*   `w`: write permission
+*   `x`: execute permission
+*   `-`: no permission
+:::
+
+. . .
+
+You can inspect permissions using `ls -l`, near the file name. For example, `rwxr-xr--` means:
+
+*   Owner has read, write, and execute permissions.
+*   Group has read and execute permissions.
+*   Others have only read permission.
+
+## Change File Permissions (UGO) {.smaller}
+
+You can change file permissions using `chmod` command. The general syntax is:
+
+`chmod [options] mode file`
+
+where `mode` can be:
+
+::: incremental
+*   `u`: user (owner)
+*   `g`: group
+*   `o`: others
+*   `a`: all (u, g, o)
+*   `+`: add permission
+*   `-`: remove permission
+*   `=`: set permission
+:::
+
+. . .
+
+For example, to give execute permission to the owner of a file:
+
+`chmod u+x file`
+
+## Stdin, Stdout, Stderr {.smaller}
+
+Every process in Unix has three standard streams:
+
+::: incremental
+*   **Standard Input (stdin)**: Input from the keyboard or another process.
+*   **Standard Output (stdout)**: Output to the terminal or another process.
+*   **Standard Error (stderr)**: Error messages to the terminal or another process.
+:::
+
+. . .
+
+By default, stdin is the keyboard, and stdout and stderr are the terminal. You can redirect these streams:
+
+::: incremental
+*   `>`: Redirect stdout to a file (`ls > files.txt`)
+*   `>>`: Append stdout to a file (`ls >> files.txt`)
+*   `2>`: Redirect stderr to a file (`ls non_existent_file 2> errors.txt`)
+*   `&>`: Redirect both stdout and stderr to a file (`ls non_existent_file &> output.txt`).
+    Its equivalent to `> output.txt 2>&1`
+*   `<`: Redirect stdin from a file (`wc -l < files.txt`)
+:::
+
+## Pipes {.smaller}
+
+Pipes (`|`) connect the stdout of one command to the stdin of another. For example:
+
+`ls -l | wc -l`
+
+This command lists files in the current directory and counts the number of lines in the output.
+
+. . .
+
+You can chain multiple commands using pipes:
+
+`ls -l | grep myfile | wc -l`
+
+This command lists files in the current directory, filters lines containing `myfile`, and counts the number of lines.
+
+## Environment Variables {.smaller}
+
+Environment variables are key-value pairs that store information about the environment. Some common environment variables:
+
+::: incremental
+*   `HOME`: Home directory
+*   `PATH`: List of directories to search for executable files
+*   `PWD`: Present working directory
+*   `OLDPWD`: Previous working directory
+*   `USER`: Current user
+*   `SHELL`: Current shell
+:::
+
+. . .
+
+You can access environment variables using `$`, for example `echo $HOME` prints 
+the home directory (to *stdout*). 
+
+You can use environment variables in scripts or commands, for example:
+`cd $HOME` or `cp $OLDPWD/file.txt .`
+
+## Aliases {.smaller}
+
+Aliases are shortcuts for commands. You can define aliases in the shell configuration file (e.g. `~/.bashrc`). For example:
+
+`alias ll='ls -l'`
+
+This command creates an alias `ll` for `ls -l`. You can use `ll` instead of `ls -l`.
+
+. . .
+
+You can list all aliases using `alias` command. To remove an alias, use `unalias` command:
+
+`unalias ll`
+
+### Exercise
+
+How many *aliases* are defined in your terminal? How many commands do you know?
+
+## Access file content {.smaller}
+
+You can access the content of a file using `cat`, `less`, `more`, or `head` and `tail` commands.
+
+::: incremental
+*   `cat`: Concatenate and display file content
+*   `less`: Display file content page by page
+*   `more`: Display file content page by page
+*   `head`: Display the first lines of a file
+*   `tail`: Display the last lines of a file
+:::
+
+. . .
+
+For example, to display the first 10 lines of a file:
+
+`head file.txt`
+
+## Search file content {.smaller}
+
+You can search for text in files using `grep` command. The general syntax is:
+
+`grep [options] pattern file`
+
+where `pattern` is the text to search for. For example:
+
+`grep 'pattern' file.txt`
+
+This command searches for `pattern` in `file.txt` and prints matching lines.
+
+. . .
+
+You can use regular expressions in `grep` to search for more complex patterns. For example:
+
+`grep -E 'pattern1|pattern2' file.txt`
+
+This command searches for `pattern1` or `pattern2` in `file.txt`.
+
+## Find files {.smaller}
+
+You can find files in the filesystem using `find` command. The general syntax is:
+
+`find [path] [options]`
+
+where `path` is the directory to search in. For example:
+
+`find /tmp -iname '*.txt'`
+
+This command searches for files with `.txt` extension in `/tmp` directory. More options:
+
+::: incremental
+*   `-name`: Search by exact name
+*   `-type`: Search by file type (e.g. `f` for file, `d` for directory)
+*   `-size`: Search by file size (`+` for larger, `-` for smaller. e.g. `+1M`)
+*   `-exec`: Execute a command on found files (requires `{}` as a placeholder and `\;` at the end of the command)
+:::
+
+## Utilities {.smaller}
+
+There are many utilities available in Unix-like systems. Some common utilities:
+
+::: incremental
+*   `awk`: A powerful text processing tool
+*   `sed`: A stream editor for filtering and transforming text
+*   `cut`: Extract columns from each line of files
+*   `sort`: Sort lines of text files
+*   `uniq`: Report or omit repeated lines
+*   `wc`: Print newline, word, and byte counts for each file
+*   `diff`: Compare files line by line
+*   `file`: Determine file type
+*   `du`: Estimate file space usage
+*   `man`: Display manual pages
+:::
+
+## Utilities exercise {.smaller}
+
+*   List current directory contents using `ls` command and redirect the output to `files.txt`.
+*   Count the number of files in the current directory using `ls` and `wc` commands.
+*   Find all files with `.txt` extension in the current directory using `find` command.
+*   Display the first 5 lines of `files.txt` using `head` command.
+*   Rename `files.txt` to `all_files.txt` using `mv` command.
+*   `ls` a non-existent file and redirect the error to `errors.txt`.
+*   Concatenate `all_files.txt` and `errors.txt` using `cat` command and redirect 
+    the output to `all_files_errors.txt`.
+*   Display manual pages for `bash` (`man bash`). Search for `Commands for Moving` section:
+    How I can move to the beginning of the line? How I can move to the next word?
+*   GitPod users locate file `LSPAN24-practical1.qmd`, `grep` for `##` characters (mind `#`
+    is a comment character), then order titles alphabetically using `sort`
+
+## Curl vs Wget {.smaller}
+
+`curl` and `wget` are command-line tools for transferring data with URLs. Some differences:
+
+::: incremental
+*   `curl`: Supports multiple protocols (HTTP, HTTPS, FTP, etc.), more flexible, but less user-friendly.
+*   `wget`: Supports HTTP and FTP, more user-friendly, but less flexible.
+*   `curl` is more suitable for scripting and automation.
+:::
+
+. . .
+
+You can use `curl` and `wget` to download files from the web. For example:
+
+`curl -O https://example.com/file.txt`
+
+This command downloads `file.txt` from `https://example.com` to the current directory.
+
+## Compression {.smaller}
+
+You can compress and decompress files using `gzip`, `bzip2`, and `xz` commands. For example:
+
+`gzip file.txt`
+
+This command compresses `file.txt` to `file.txt.gz`. To decompress:
+
+`gunzip file.txt.gz` (or `gzip -d file.txt.gz`)
+
+. . .
+
+You can use `bzip2` and `xz` commands similarly. For example to compress:
+
+`bzip2 file.txt`
+
+`xz file.txt`
+
+To decompress:
+
+`bunzip2 file.txt.bz2` (or `bzip2 -d file.txt.bz2`)
+
+`unxz file.txt.xz` (or `xz -d file.txt.xz`)
+
+## Tar {.smaller}
+
+You can create (`-c`) and extract (`-x`) tar archives using `tar` command. For example:
+
+`tar -cvf archive.tar file1 file2`
+
+This command creates `archive.tar` containing `file1` and `file2`. 
+**This archive is not compressed** and have the same size of the sum of
+`file1` and `file2` sizes. To extract:
+
+`tar -xvf archive.tar`
+
+. . .
+
+You can compress and extract compressed tar archives in one step. For example:
+
+`tar -czvf archive.tar.gz file1 file2`
+
+This command creates `archive.tar.gz` containing `file1` and `file2`. To extract:
+
+`tar -xzvf archive.tar.gz`
+
+Mind to the `z` option for gzip, `j` for bzip2, and `J` for xz. `f` need to be
+followed by the archive name.
+
+## Tar (remember) {.smaller}
+
+![Credits [programmerhumor.io](https://programmerhumor.io/programming-memes/for-the-programmers-who-use-tar/)](https://programmerhumor.io/wp-content/uploads/2023/11/programmerhumor-io-programming-memes-4afd15c9908ddc5-758x809.jpg){fig-align="center" .r-stretch fig-cap-location=bottom}
 
 ## Introduction to virtual environment
 
