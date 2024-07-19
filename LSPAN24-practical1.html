@@ -895,6 +895,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li class="fragment"><code>file</code>: Determine file type</li>
 <li class="fragment"><code>du</code>: Estimate file space usage</li>
 <li class="fragment"><code>man</code>: Display manual pages</li>
+<li class="fragment"><code>which</code>: Locate a command</li>
 </ul>
 </div>
 </section>
@@ -961,14 +962,28 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <h2>Tar (remember)</h2>
 
 <img data-src="https://programmerhumor.io/wp-content/uploads/2023/11/programmerhumor-io-programming-memes-4afd15c9908ddc5-758x809.jpg" class="r-stretch quarto-figure-center"><p class="caption">Credits <a href="https://programmerhumor.io/programming-memes/for-the-programmers-who-use-tar/">programmerhumor.io</a></p></section>
+<section id="editors" class="slide level2">
+<h2>Editors</h2>
+<p>There are many text editors available in Unix-like systems. Here some common editors available in terminal:</p>
+<div>
+<ul>
+<li class="fragment"><code>nano</code>: Simple and user-friendly text editor</li>
+<li class="fragment"><code>vim</code>: Powerful and highly configurable text editor</li>
+<li class="fragment"><code>emacs</code>: Extensible and customizable text editor</li>
+</ul>
+</div>
+<div class="fragment">
+<p>GitPod users have access to <a href="https://code.visualstudio.com/">Visual Studio Code</a>, a powerful and highly configurable text editor.</p>
+</div>
+</section>
 <section id="introduction-to-virtual-environment" class="slide level2">
 <h2>Introduction to virtual environment</h2>
-<p>Something on virtual environments in general. Then introduce conda and mamba.</p>
+<p>Virtual environments are isolated environments for software development. They allow you to install dependencies and packages without affecting the system-wide installation. Some common tools for creating virtual environments:</p>
 <ul>
-<li>Python: virtualenv, pyenv, poetry</li>
-<li>R: packrat, renv</li>
-<li>Perl: perlbrew, local::lib</li>
-<li>Ruby: rvm</li>
+<li>Python: <a href="https://virtualenv.pypa.io/en/latest/">virtualenv</a>, <a href="https://github.com/pyenv/pyenv">pyenv</a>, <a href="https://python-poetry.org/">poetry</a></li>
+<li>R: <a href="https://rstudio.github.io/packrat/">packrat</a>, <a href="https://rstudio.github.io/renv/articles/renv.html">renv</a></li>
+<li>Perl: <a href="https://metacpan.org/pod/local::lib">local::lib</a>, <a href="https://perlbrew.pl/">perlbrew</a></li>
+<li>Ruby: <a href="https://rvm.io/">rvm</a></li>
 </ul>
 <aside class="notes">
 <p>something on reproducibility and the need for virtual environments.</p>
@@ -1033,8 +1048,11 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>--file</code>: specify the file containing the environment specifications</li>
 <li><code>--name</code>: override the name of the environment in the file</li>
 </ul>
-<div class="sourceCode" id="cb4" data-code-line-numbers="1-2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="co"># create an environment from a file</span></span>
-<span id="cb4-2"><a href=""></a><span class="ex">conda</span> env create <span class="at">--file</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="co"># create an environment from a file (use name in file)</span></span>
+<span id="cb4-2"><a href=""></a><span class="ex">conda</span> env create <span class="at">--file</span> environment.yml</span>
+<span id="cb4-3"><a href=""></a></span>
+<span id="cb4-4"><a href=""></a><span class="co"># create an environment from a file (override name in file)</span></span>
+<span id="cb4-5"><a href=""></a><span class="ex">conda</span> env create <span class="at">--file</span> environment.yml <span class="at">--name</span> myname</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>without the <code>--file</code> option, the current <code>environment.yml</code> file will be used.</p>
 <style type="text/css">
@@ -1049,17 +1067,22 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
           display:block!important;
       }</style></aside>
 </section>
-<section id="list-and-activate-environments" class="slide level2">
+<section id="list-and-activate-environments" class="slide level2 smaller">
 <h2>List and activate environments</h2>
 <ul>
 <li><code>conda env list</code>: list all environments</li>
 <li><code>conda activate &lt;env_name&gt;</code>: activate an environment</li>
 </ul>
 <p>Normally the prompt will change to show the active environment. Default installation have the <code>base</code> environment active at login</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">paolo@bullseye-laptop:~$</span> conda activate ognigenoma</span>
-<span id="cb5-2"><a href=""></a><span class="kw">(</span><span class="ex">ognigenoma</span><span class="kw">)</span> <span class="ex">paolo@bullseye-laptop:~$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $ conda activate ognigenoma</span>
+<span id="cb5-2"><a href=""></a><span class="kw">(</span><span class="ex">ognigenoma</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p>To deactivate an environment, use <code>conda deactivate</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="kw">(</span><span class="ex">ognigenoma</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $ conda deactivate</span>
+<span id="cb6-2"><a href=""></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="channels-and-repositories" class="slide level2">
+<section id="channels-and-repositories" class="slide level2 smaller">
 <h2>Channels and repositories</h2>
 <ul>
 <li><code>defaults</code>: the default channel for conda packages</li>
@@ -1067,16 +1090,31 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>R</code>: a channel for R packages</li>
 <li><code>conda-forge</code>: a community-driven collection of conda packages</li>
 </ul>
-<div class="sourceCode" id="cb6" data-code-line-numbers="1-2|4-6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
-<span id="cb6-2"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels conda-forge</span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
-<span id="cb6-5"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels bioconda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
+<span id="cb7-2"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels conda-forge</span>
+<span id="cb7-3"><a href=""></a></span>
+<span id="cb7-4"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
+<span id="cb7-5"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels bioconda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>GitPod users: we have set up channels required for the practical with the suggested <em>priority</em> settings. You can see the settings in the <code>.condarc</code> file in your home directory. See more information on conda <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html">Managing Channels</a></p>
 </section>
-<section id="search-for-packages" class="slide level2">
+<section id="search-for-packages" class="slide level2 smaller">
 <h2>Search for packages</h2>
+<p>Use <code>conda search</code> to search for packages in the configured channels. Wildcards can be used in the search:</p>
+<div class="sourceCode" id="cb8" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="co"># search for a package in the configured channels</span></span>
+<span id="cb8-2"><a href=""></a><span class="ex">conda</span> search samtools</span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="co"># search for a package in a specific channel</span></span>
+<span id="cb8-5"><a href=""></a><span class="ex">conda</span> search <span class="at">--channel</span> bioconda samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>GitPod users: the channels are already configured for the practicals. You can search any package in the configured channels.</p>
+<h3 id="excercise">Excercise</h3>
+<p>Search for the package <code>samtools</code> in the <code>bioconda</code> channel:</p>
+<ol type="1">
+<li>What versions are available?</li>
+<li>What is the latest version? In which channel?</li>
+<li>Do the same for <code>r-base</code> package.</li>
+</ol>
 </section>
-<section id="install-packages" class="slide level2">
+<section id="install-packages" class="slide level2 smaller">
 <h2>Install packages</h2>
 <ul>
 <li><code>conda install</code>: install packages in the active environment
@@ -1085,17 +1123,20 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>--file</code>: specify a file with the list of packages to install</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb7" data-code-line-numbers="1-2|4-5|7-9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="co"># install a package in the active environment</span></span>
-<span id="cb7-2"><a href=""></a><span class="ex">conda</span> install pandas</span>
-<span id="cb7-3"><a href=""></a></span>
-<span id="cb7-4"><a href=""></a><span class="co"># install a package in a specific environment</span></span>
-<span id="cb7-5"><a href=""></a><span class="ex">conda</span> install <span class="at">--name</span> python3.10 pandas</span>
-<span id="cb7-6"><a href=""></a></span>
-<span id="cb7-7"><a href=""></a><span class="co"># install packages from a file in the active environment </span></span>
-<span id="cb7-8"><a href=""></a><span class="co"># (python format)</span></span>
-<span id="cb7-9"><a href=""></a><span class="ex">conda</span> install <span class="at">--file</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9" data-code-line-numbers="1-3|5-6|8-10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="co"># install a package in the active environment</span></span>
+<span id="cb9-2"><a href=""></a><span class="co"># base environment is read-only for GitPod users!</span></span>
+<span id="cb9-3"><a href=""></a><span class="ex">conda</span> install pandas</span>
+<span id="cb9-4"><a href=""></a></span>
+<span id="cb9-5"><a href=""></a><span class="co"># install a package in a specific environment</span></span>
+<span id="cb9-6"><a href=""></a><span class="ex">conda</span> install <span class="at">--name</span> python3.10 pandas</span>
+<span id="cb9-7"><a href=""></a></span>
+<span id="cb9-8"><a href=""></a><span class="co"># install packages from a file in the active environment </span></span>
+<span id="cb9-9"><a href=""></a><span class="co"># (python format)</span></span>
+<span id="cb9-10"><a href=""></a><span class="ex">conda</span> install <span class="at">--file</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="exercise-1">Exercise</h3>
+<p>Create an environment with <code>samtools</code>, <code>tabix</code> and <code>bcftools</code> packages. Activate the environment and check if the packages are installed. Then install <code>seqkit</code> package in the same environment.</p>
 </section>
-<section id="exporting-an-environment" class="slide level2">
+<section id="exporting-an-environment" class="slide level2 smaller">
 <h2>Exporting an environment</h2>
 <ul>
 <li><code>conda env export</code>: export the environment to a file</li>
@@ -1103,14 +1144,14 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>--file</code>: specify the file to export the environment to</li>
 <li><code>--no-builds</code>: exclude the build string from the exported file</li>
 </ul>
-<div class="sourceCode" id="cb8" data-code-line-numbers="1-2|4-5|7-8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="co"># export the active environment to a file (using STDOUT)</span></span>
-<span id="cb8-2"><a href=""></a><span class="ex">conda</span> env export <span class="op">&gt;</span> environment.yml</span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a><span class="co"># export a specific environment to a file</span></span>
-<span id="cb8-5"><a href=""></a><span class="ex">conda</span> env export <span class="at">--name</span> python3.10 <span class="op">&gt;</span> environment.yml</span>
-<span id="cb8-6"><a href=""></a></span>
-<span id="cb8-7"><a href=""></a><span class="co"># export a specific environment to a specific file</span></span>
-<span id="cb8-8"><a href=""></a><span class="ex">conda</span> env export <span class="at">--name</span> python3.10 <span class="at">--file</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="co"># export the active environment to a file (using STDOUT)</span></span>
+<span id="cb10-2"><a href=""></a><span class="ex">conda</span> env export <span class="op">&gt;</span> environment.yml</span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="co"># export a specific environment to a specific file</span></span>
+<span id="cb10-5"><a href=""></a><span class="ex">conda</span> env export <span class="at">--name</span> python3.10 <span class="at">--file</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<h3 id="excercise-1">Excercise</h3>
+<p>Export an environment to a file; then export the same environment with <code>--no-builds</code> option to another file. Compare the two files with <code>diff</code> (try <code>diff -y</code> for a more readable output).</p>
 <aside class="notes">
 <p>does people know STDOUT/STDERR/STDIN?</p>
 <style type="text/css">
@@ -1124,8 +1165,9 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
-<section id="some-tips" class="slide level2">
+<section id="some-tips" class="slide level2 smaller">
 <h2>Some tips</h2>
 <div>
 <ul>
@@ -1134,6 +1176,10 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li class="fragment">Create environments by scope: don’t pull all packages in the same environment</li>
 <li class="fragment">Limit the <code>conda-forge</code> channel usage if possible</li>
 <li class="fragment"><code>conda list --revision</code>: list all revisions of the environment</li>
+<li class="fragment"><code>conda install --revision 1</code>: revert environment to a previous revision</li>
+<li class="fragment"><code>conda env remove --name &lt;env_name&gt;</code>: remove an environment</li>
+<li class="fragment"><code>conda create --clone &lt;env_name&gt; --name &lt;new_env&gt;</code>: clone an environment</li>
+<li class="fragment"><code>conda clean --all</code>: clean the cache and unused packages</li>
 </ul>
 </div>
 <div class="quarto-auto-generated-content">
