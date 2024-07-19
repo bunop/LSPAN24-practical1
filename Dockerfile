@@ -1,11 +1,11 @@
 
-# VERSION 0.1.0
+# VERSION 0.2.0
 # DOCKER-VERSION  27.0.3
 # AUTHOR:         Paolo Cozzi <paolo.cozzi@ibba.cnr.it>
 # DESCRIPTION:    A docker images with mamba and apptainer based on gitpod/workspace-base
 # TO_BUILD:       docker build --rm -t bunop/lspan24practical1 .
 # TO_RUN:         docker run --rm -ti bunop/lspan24practical1 bash
-# TO_TAG:         docker tag bunop/lspan24practical1:latest bunop/lspan24practical1:0.1.0
+# TO_TAG:         docker tag bunop/lspan24practical1:latest bunop/lspan24practical1:0.2.0
 #
 
 FROM gitpod/workspace-base:2024-07-10-08-22-03
@@ -19,6 +19,8 @@ USER root
 RUN apt-get update && \
     apt-get install -y \
         build-essential \
+        tmux \
+        tree \
         cargo \
         wget \
         curl && \
@@ -43,10 +45,10 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 ENV PATH=$CONDA_DIR/bin:$PATH
 
 # update base channel
-RUN conda config --add channels defaults && \
-    conda config --add channels bioconda && \
+RUN conda config --add channels bioconda && \
     conda config --add channels conda-forge && \
     conda config --set channel_priority strict && \
+    conda config --add envs_dirs /workspace/.conda/envs && \
     conda update --quiet --yes --all && \
     conda install --quiet --yes --name base \
         mamba && \
