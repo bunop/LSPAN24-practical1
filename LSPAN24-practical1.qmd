@@ -586,6 +586,10 @@ followed by the archive name.
 
 ![Credits [programmerhumor.io](https://programmerhumor.io/programming-memes/for-the-programmers-who-use-tar/)](https://programmerhumor.io/wp-content/uploads/2023/11/programmerhumor-io-programming-memes-4afd15c9908ddc5-758x809.jpg){fig-align="center" .r-stretch fig-cap-location=bottom}
 
+## Tar (remember /2) {.smaller}
+
+![Credits [xkcd.com](https://xkcd.com/1168/)](https://imgs.xkcd.com/comics/tar_2x.png){fig-align="center" .r-stretch fig-cap-location=bottom}
+
 ## Editors
 
 There are many text editors available in Unix-like systems. 
