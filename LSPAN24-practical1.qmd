@@ -497,6 +497,7 @@ There are many utilities available in Unix-like systems. Some common utilities:
 *   `file`: Determine file type
 *   `du`: Estimate file space usage
 *   `man`: Display manual pages
+*   `which`: Locate a command
 :::
 
 ## Utilities exercise {.smaller}
@@ -585,14 +586,33 @@ followed by the archive name.
 
 ![Credits [programmerhumor.io](https://programmerhumor.io/programming-memes/for-the-programmers-who-use-tar/)](https://programmerhumor.io/wp-content/uploads/2023/11/programmerhumor-io-programming-memes-4afd15c9908ddc5-758x809.jpg){fig-align="center" .r-stretch fig-cap-location=bottom}
 
+## Editors
+
+There are many text editors available in Unix-like systems. 
+Here some common editors available in terminal:
+
+::: incremental
+*   `nano`: Simple and user-friendly text editor
+*   `vim`: Powerful and highly configurable text editor
+*   `emacs`: Extensible and customizable text editor
+:::
+
+. . .
+
+GitPod users have access to [Visual Studio Code](https://code.visualstudio.com/),
+a powerful and highly configurable text editor.
+
 ## Introduction to virtual environment
 
-Something on virtual environments in general. Then introduce conda and mamba.
+Virtual environments are isolated environments for software development. 
+They allow you to install dependencies and packages without affecting the system-wide installation. 
+Some common tools for creating virtual environments:
 
--   Python: virtualenv, pyenv, poetry
--   R: packrat, renv
--   Perl: perlbrew, local::lib
--   Ruby: rvm
+-   Python: [virtualenv](https://virtualenv.pypa.io/en/latest/),
+    [pyenv](https://github.com/pyenv/pyenv), [poetry](https://python-poetry.org/)
+-   R: [packrat](https://rstudio.github.io/packrat/), [renv](https://rstudio.github.io/renv/articles/renv.html)
+-   Perl: [local::lib](https://metacpan.org/pod/local::lib), [perlbrew](https://perlbrew.pl/)
+-   Ruby: [rvm](https://rvm.io/)
 
 ::: notes
 something on reproducibility and the need for virtual environments.
@@ -638,16 +658,19 @@ We can also create an environment from a file. Note the `env` before the `create
 -   `--file`: specify the file containing the environment specifications
 -   `--name`: override the name of the environment in the file
 
-``` {.bash code-line-numbers="1-2"}
-# create an environment from a file
+``` {.bash code-line-numbers="1-2|4-5"}
+# create an environment from a file (use name in file)
 conda env create --file environment.yml
+
+# create an environment from a file (override name in file)
+conda env create --file environment.yml --name myname
 ```
 
 ::: notes
 without the `--file` option, the current `environment.yml` file will be used.
 :::
 
-## List and activate environments
+## List and activate environments {.smaller}
 
 -   `conda env list`: list all environments
 -   `conda activate <env_name>`: activate an environment
@@ -656,18 +679,27 @@ Normally the prompt will change to show the active environment. Default installa
 have the `base` environment active at login
 
 ```bash
-(base) paolo@bullseye-laptop:~$ conda activate ognigenoma
-(ognigenoma) paolo@bullseye-laptop:~$
+(base) gitpod ~ $ conda activate ognigenoma
+(ognigenoma) gitpod ~ $
 ```
 
-## Channels and repositories
+. . .
+
+To deactivate an environment, use `conda deactivate`:
+
+```bash
+(ognigenoma) gitpod ~ $ conda deactivate
+(base) gitpod ~ $
+```
+
+## Channels and repositories {.smaller}
 
 -   `defaults`: the default channel for conda packages
 -   `bioconda`: a channel for bioinformatics software
 -   `R`: a channel for R packages
 -   `conda-forge`: a community-driven collection of conda packages
 
-``` {.bash code-line-numbers="1-2|4-6"}
+``` {.bash}
 # add a channel to the list of channels
 conda config --add channels conda-forge
 
@@ -675,16 +707,44 @@ conda config --add channels conda-forge
 conda config --add channels bioconda
 ```
 
-## Search for packages
+GitPod users: we have set up channels required for the practical with
+the suggested *priority* settings. You can see the settings in the
+`.condarc` file in your home directory. See more information on
+conda [Managing Channels](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html)
 
-## Install packages
+## Search for packages {.smaller}
+
+Use `conda search` to search for packages in the configured channels.
+Wildcards can be used in the search:
+
+``` {.bash code-line-numbers="1-2|4-5"}
+# search for a package in the configured channels
+conda search samtools
+
+# search for a package in a specific channel
+conda search --channel bioconda samtools
+```
+
+GitPod users: the channels are already configured for the practicals.
+You can search any package in the configured channels.
+
+### Excercise
+
+Search for the package `samtools` in the `bioconda` channel: 
+
+1. What versions are available? 
+2. What is the latest version? In which channel?
+4. Do the same for `r-base` package.
+
+## Install packages {.smaller}
 
 *   `conda install`: install packages in the active environment
     +   `--name`: specify the environment to install the package
     +   `--file`: specify a file with the list of packages to install
 
-``` {.bash code-line-numbers="1-2|4-5|7-9"}
+``` {.bash code-line-numbers="1-3|5-6|8-10"}
 # install a package in the active environment
+# base environment is read-only for GitPod users!
 conda install pandas
 
 # install a package in a specific environment
@@ -695,29 +755,40 @@ conda install --name python3.10 pandas
 conda install --file requirements.txt
 ```
 
-## Exporting an environment
+### Exercise
+
+Create an environment with `samtools`, `tabix` and `bcftools` packages.
+Activate the environment and check if the packages are installed. Then
+install `seqkit` package in the same environment.
+
+## Exporting an environment {.smaller}
 
 -   `conda env export`: export the environment to a file
 -   `--name`: specify the environment to export
 -   `--file`: specify the file to export the environment to
 -   `--no-builds`: exclude the build string from the exported file
 
-``` {.bash code-line-numbers="1-2|4-5|7-8"}
+``` {.bash code-line-numbers="1-2|4-5"}
 # export the active environment to a file (using STDOUT)
 conda env export > environment.yml
-
-# export a specific environment to a file
-conda env export --name python3.10 > environment.yml
 
 # export a specific environment to a specific file
 conda env export --name python3.10 --file environment.yml
 ```
 
+. . .
+
+### Excercise
+
+Export an environment to a file; then export the same environment
+with `--no-builds` option to another file. Compare the two files
+with `diff` (try `diff -y` for a more readable output).
+
 ::: notes
 does people know STDOUT/STDERR/STDIN?
 :::
 
-## Some tips
+## Some tips {.smaller}
 
 ::: incremental
 -   `conda list`: list all packages installed in the active environment
@@ -725,4 +796,8 @@ does people know STDOUT/STDERR/STDIN?
 -   Create environments by scope: don't pull all packages in the same environment
 -   Limit the `conda-forge` channel usage if possible
 -   `conda list --revision`: list all revisions of the environment
+-   `conda install --revision 1`: revert environment to a previous revision
+-   `conda env remove --name <env_name>`: remove an environment
+-   `conda create --clone <env_name> --name <new_env>`: clone an environment
+-   `conda clean --all`: clean the cache and unused packages
 :::
