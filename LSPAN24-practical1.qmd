@@ -828,3 +828,114 @@ does people know STDOUT/STDERR/STDIN?
 -   `conda create --clone <env_name> --name <new_env>`: clone an environment
 -   `conda clean --all`: clean the cache and unused packages
 :::
+
+## Practical with conda: get genome data {.smaller}
+
+Let's collect some genome data to make an example. We will use the CLI tools
+made available by NCBI, `datasets` and `dataformat`, to collect ARS-UCD1.2
+data from the NCBI database. Next, we will use `seqkit` to manipulate file
+headers and then we will `bgzip` to pack the sequence files. 
+
+1.    Create one conda environment with `ncbi-datasets-cli`, `jq`, `seqkit` and `tabix`
+      packages
+
+2.    Go the [NCBI Datasets](https://www.ncbi.nlm.nih.gov/datasets/) page
+      and search for *cow* (`Bos taurus (cattle)` will be suggested). You
+      will open the new page for 
+      [NCBI Taxonomy ID: `9913`](https://www.ncbi.nlm.nih.gov/datasets/taxonomy/9913/).
+3.    Click on [ARS-UCD2.0](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002263795.3/)
+      link, below the *Genome* section an over the *Download* button (don't
+      download the genome from this page)
+
+## Genome assembly and legacy versions {.smaller}
+
+In the practical we will use the ARS-UCD1.2 (`GCF_002263795.1`) version of the genome,
+however the latest version is ARS-UCD2.0 (`GCF_002263795.3`): 
+
+1.    Go to the bottom of the page and search for the
+      [GCF_002263795.1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002263795.1/) 
+      accession for the ARS-UCD1.2 version (will be in the refseq column)
+      and click on it.
+2.    In the top of the page, near the *Download* button we have some
+      different ways to collect data. We don't want to download the genome
+      on on our laptop, so click on the *datasets* tab, just near the download
+      button.
+3.    A pop-up window will appear with the command to download the genome
+      data. Copy the command by clicking on the *Copy* button.
+
+## NCBI Datasets CLI {.smaller}
+
+`datasets` is a command-line tool that is used to query and download biological
+sequence data across all domains of life from NCBI databases. See the
+[documentation](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/datasets/) 
+for more information. 
+
+For example, retrieve the same information as before using the accession number:
+*pipe* the result to [jq](https://jqlang.github.io/jq/manual/) to format the output:
+
+```{.bash}
+datasets summary genome accession GCF_002263795.1 | jq
+```
+
+The same command can be use to download the genome data: paste the command you've
+copied from the NCBI Taxonomy page and add two additional options:
+
+```{.bash}
+datasets download genome accession GCF_002263795.1 \
+  --include gff3,rna,cds,protein,genome,seq-report \
+  --dehydrated --filename ARS-UCD1.2.zip
+```
+
+::: {.callout-note}
+## Note:
+The `\` (escape character) is used to break the command in multiple lines:
+it is not necessary if you paste the command in one line: but if you paste
+the command in multiple lines it prevents the command from being executed
+before you finish typing it.
+:::
+
+## NCBI Datasets CLI (2) {.smaller}
+
+* `--dehydrated`: download the data in a dehydrated format: the data is
+  downloaded in a format that can be rehydrated using the `datasets` tool.
+  This is required if you need to download a lot of data. See 
+  [Download large genome data packages](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/how-tos/genomes/large-download/)
+  for more information
+* `--filename`: specify the name of the file to download the data to
+* `--include`: specify the data types to download: if we are not interested
+  in all data types we can exclude some of them
+  
+Now unzip the downloaded archive in a new directory (since the archive
+will place stuff in the current directory):
+
+```{.bash}
+unzip ARS-UCD1.2.zip -d ARS-UCD1.2
+```
+
+* `-d`: specify the directory to extract the files to
+
+## Rehydrate the data {.smaller}
+
+Take a look to see the downloaded data: we have not any data! the only
+data we have are some metadata and the URL were files can be downloaded.
+
+Is now time to rehydrate data:
+
+```{.bash}
+datasets rehydrate --directory ARS-UCD1.2
+```
+
+* `--directory`: this is the top level directory in which you have 
+  decompressed data with `unzip`
+  
+Now the data should be downloaded in the same directory where the
+metadata is located. You can check the data with `ls` or `tree`:
+
+```{.bash}
+tree -phC ARS-UCD1.2
+```
+
+* `tree`: list the directory structure in a tree-like format
+  + `-p`: show permissions
+  + `-h`: show sizes in human readable format
+  + `-C`: colorize the output
