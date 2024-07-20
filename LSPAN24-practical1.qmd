@@ -603,8 +603,10 @@ Here some common editors available in terminal:
 
 . . .
 
+::: {.callout-tip}
 GitPod users have access to [Visual Studio Code](https://code.visualstudio.com/),
 a powerful and highly configurable text editor.
+:::
 
 ## Introduction to virtual environment
 
@@ -711,10 +713,12 @@ conda config --add channels conda-forge
 conda config --add channels bioconda
 ```
 
+::: {.callout-tip}
 GitPod users: we have set up channels required for the practical with
 the suggested *priority* settings. You can see the settings in the
 `.condarc` file in your home directory. See more information on
 conda [Managing Channels](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html)
+:::
 
 ## Search for packages {.smaller}
 
@@ -764,6 +768,25 @@ conda install --file requirements.txt
 Create an environment with `samtools`, `tabix` and `bcftools` packages.
 Activate the environment and check if the packages are installed. Then
 install `seqkit` package in the same environment.
+
+## Understanding the environment (exercise) {.smaller}
+
+1.    Ensure the environment created in the previous exercise is active. Can
+      you find where the `samtools` executable is located?
+2.    Deactivate the environment and check if the `samtools` executable is
+      available. Why is it not available?
+3.    Can you figure out how conda makes the executables available in the
+      active environment?
+      
+. . .
+
+::: {.callout-tip}
+## Hints:
+
+-   Use `which` to find the location of the executable.
+-   Take a look to the environment variables in the active environment, for
+    example `$PATH`.
+:::
 
 ## Exporting an environment {.smaller}
 
