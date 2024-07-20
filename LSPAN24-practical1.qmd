@@ -291,7 +291,7 @@ Wildcards are characters that help match file names based on patterns. Ex:
     matches `file1`, `file2` and `fileverylong`)
 :::
 
-## Special characters
+## Special characters {.smaller}
 
 Some characters have special meanings in the shell:
 
@@ -301,6 +301,12 @@ Some characters have special meanings in the shell:
 *   `;`: separates commands in one line (execute commands with this order e.g. 
     `cd /tmp; ls` first change to `/tmp` then list files)
 *   `\`: escapes the next character (`ls file\ with\ spaces.txt`)
+*   `'`: preserves the literal value of all characters enclosed
+    (`echo 'Today is $(date)'` will print `Today is $(date)`)
+*   `"`: preserves the literal value of all characters enclosed, but 
+    allow for variable expansion, command substitution, and escape sequences
+    (`echo "Today is $(date)"` will print `Today is <current date>`)
+*   `#`: comments the rest of the line (`# this is a comment`). Not executed.
 :::
 
 ## File Permissions {.smaller}
@@ -411,7 +417,9 @@ You can use environment variables in scripts or commands, for example:
 
 Aliases are shortcuts for commands. You can define aliases in the shell configuration file (e.g. `~/.bashrc`). For example:
 
-`alias ll='ls -l'`
+```bash
+alias ll='ls -l'
+```
 
 This command creates an alias `ll` for `ls -l`. You can use `ll` instead of `ls -l`.
 
@@ -419,11 +427,13 @@ This command creates an alias `ll` for `ls -l`. You can use `ll` instead of `ls 
 
 You can list all aliases using `alias` command. To remove an alias, use `unalias` command:
 
-`unalias ll`
-
+```bash
+unalias ll
+```
 ### Exercise
 
-How many *aliases* are defined in your terminal? How many commands do you know?
+* How many *aliases* are defined in your terminal?
+* How many commands do you know?
 
 ## Access file content {.smaller}
 
@@ -512,7 +522,7 @@ There are many utilities available in Unix-like systems. Some common utilities:
     the output to `all_files_errors.txt`.
 *   Display manual pages for `bash` (`man bash`). Search for `Commands for Moving` section:
     How I can move to the beginning of the line? How I can move to the next word?
-*   GitPod users locate file `LSPAN24-practical1.qmd`, `grep` for `##` characters (mind `#`
+*   GitPod users: locate file `LSPAN24-practical1.qmd`, `grep` for `##` characters (mind `#`
     is a comment character), then order titles alphabetically using `sort`
 
 ## Curl vs Wget {.smaller}
@@ -685,6 +695,7 @@ Normally the prompt will change to show the active environment. Default installa
 have the `base` environment active at login
 
 ```bash
+# Activate an environment
 (base) gitpod ~ $ conda activate ognigenoma
 (ognigenoma) gitpod ~ $
 ```
@@ -694,15 +705,20 @@ have the `base` environment active at login
 To deactivate an environment, use `conda deactivate`:
 
 ```bash
+# Deactivate the current environment
 (ognigenoma) gitpod ~ $ conda deactivate
 (base) gitpod ~ $
 ```
 
+You can activate more than one environment at a time. 
+The last activated environment will be active.
+When you deactivate an environment, the previous environment will be activated.
+
 ## Channels and repositories {.smaller}
 
 -   `defaults`: the default channel for conda packages
--   `bioconda`: a channel for bioinformatics software
 -   `R`: a channel for R packages
+-   `bioconda`: a channel for bioinformatics software
 -   `conda-forge`: a community-driven collection of conda packages
 
 ``` {.bash}
@@ -732,17 +748,20 @@ conda search samtools
 # search for a package in a specific channel
 conda search --channel bioconda samtools
 ```
-
+::: {.callout-tip}
 GitPod users: the channels are already configured for the practicals.
-You can search any package in the configured channels.
+You can search any package in the configured channels without specifying 
+the channel.
+:::
 
-### Excercise
+. . .
+
+### Exercise
 
 Search for the package `samtools` in the `bioconda` channel: 
 
-1. What versions are available? 
-2. What is the latest version? In which channel?
-4. Do the same for `r-base` package.
+1. What versions are available? What is the latest version? In which channel?
+2. Do the same for `r-base` package.
 
 ## Install packages {.smaller}
 
