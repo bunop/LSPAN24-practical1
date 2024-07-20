@@ -717,7 +717,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 </ul>
 </div>
 </section>
-<section id="special-characters" class="slide level2">
+<section id="special-characters" class="slide level2 smaller">
 <h2>Special characters</h2>
 <p>Some characters have special meanings in the shell:</p>
 <div>
@@ -726,6 +726,9 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li class="fragment"><code>$</code>: refers to an environment variable (<code>echo $HOME</code>, <code>echo $PWD</code>)</li>
 <li class="fragment"><code>;</code>: separates commands in one line (execute commands with this order e.g.&nbsp; <code>cd /tmp; ls</code> first change to <code>/tmp</code> then list files)</li>
 <li class="fragment"><code>\</code>: escapes the next character (<code>ls file\ with\ spaces.txt</code>)</li>
+<li class="fragment"><code>'</code>: preserves the literal value of all characters enclosed (<code>echo 'Today is $(date)'</code> will print <code>Today is $(date)</code>)</li>
+<li class="fragment"><code>"</code>: preserves the literal value of all characters enclosed, but allow for variable expansion, command substitution, and escape sequences (<code>echo "Today is $(date)"</code> will print <code>Today is &lt;current date&gt;</code>)</li>
+<li class="fragment"><code>#</code>: comments the rest of the line (<code># this is a comment</code>). Not executed.</li>
 </ul>
 </div>
 </section>
@@ -825,13 +828,16 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <section id="aliases" class="slide level2 smaller">
 <h2>Aliases</h2>
 <p>Aliases are shortcuts for commands. You can define aliases in the shell configuration file (e.g.&nbsp;<code>~/.bashrc</code>). For example:</p>
-<p><code>alias ll='ls -l'</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="bu">alias</span> ll=<span class="st">'ls -l'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This command creates an alias <code>ll</code> for <code>ls -l</code>. You can use <code>ll</code> instead of <code>ls -l</code>.</p>
 <div class="fragment">
 <p>You can list all aliases using <code>alias</code> command. To remove an alias, use <code>unalias</code> command:</p>
-<p><code>unalias ll</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="bu">unalias</span> ll</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <h3 id="exercise">Exercise</h3>
-<p>How many <em>aliases</em> are defined in your terminal? How many commands do you know?</p>
+<ul>
+<li>How many <em>aliases</em> are defined in your terminal?</li>
+<li>How many commands do you know?</li>
+</ul>
 </div>
 </section>
 <section id="access-file-content" class="slide level2 smaller">
@@ -910,7 +916,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>ls</code> a non-existent file and redirect the error to <code>errors.txt</code>.</li>
 <li>Concatenate <code>all_files.txt</code> and <code>errors.txt</code> using <code>cat</code> command and redirect the output to <code>all_files_errors.txt</code>.</li>
 <li>Display manual pages for <code>bash</code> (<code>man bash</code>). Search for <code>Commands for Moving</code> section: How I can move to the beginning of the line? How I can move to the next word?</li>
-<li>GitPod users locate file <code>LSPAN24-practical1.qmd</code>, <code>grep</code> for <code>##</code> characters (mind <code>#</code> is a comment character), then order titles alphabetically using <code>sort</code></li>
+<li>GitPod users: locate file <code>LSPAN24-practical1.qmd</code>, <code>grep</code> for <code>##</code> characters (mind <code>#</code> is a comment character), then order titles alphabetically using <code>sort</code></li>
 </ul>
 </section>
 <section id="curl-vs-wget" class="slide level2 smaller">
@@ -977,7 +983,19 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 </ul>
 </div>
 <div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
 <p>GitPod users have access to <a href="https://code.visualstudio.com/">Visual Studio Code</a>, a powerful and highly configurable text editor.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="introduction-to-virtual-environment" class="slide level2">
@@ -1036,14 +1054,14 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>--name</code>: required to specify the name of the environment.</li>
 <li>specifying versions helps the package resolver</li>
 </ul>
-<div class="sourceCode" id="cb3" data-code-line-numbers="1-2|4-5|7-8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="co"># create an empty environment</span></span>
-<span id="cb3-2"><a href=""></a><span class="ex">conda</span> create <span class="at">--name</span> empty</span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a><span class="co"># create an environment with some software</span></span>
-<span id="cb3-5"><a href=""></a><span class="ex">conda</span> create <span class="at">--name</span> python python ipython</span>
-<span id="cb3-6"><a href=""></a></span>
-<span id="cb3-7"><a href=""></a><span class="co"># create an environment with a specific software version</span></span>
-<span id="cb3-8"><a href=""></a><span class="ex">conda</span> create <span class="at">--name</span> python3.10 python=3.10 ipython=8.25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5" data-code-line-numbers="1-2|4-5|7-8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="co"># create an empty environment</span></span>
+<span id="cb5-2"><a href=""></a><span class="ex">conda</span> create <span class="at">--name</span> empty</span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="co"># create an environment with some software</span></span>
+<span id="cb5-5"><a href=""></a><span class="ex">conda</span> create <span class="at">--name</span> python python ipython</span>
+<span id="cb5-6"><a href=""></a></span>
+<span id="cb5-7"><a href=""></a><span class="co"># create an environment with a specific software version</span></span>
+<span id="cb5-8"><a href=""></a><span class="ex">conda</span> create <span class="at">--name</span> python3.10 python=3.10 ipython=8.25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-an-environment-from-file" class="slide level2">
 <h2>Create an environment (from file)</h2>
@@ -1052,11 +1070,11 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>--file</code>: specify the file containing the environment specifications</li>
 <li><code>--name</code>: override the name of the environment in the file</li>
 </ul>
-<div class="sourceCode" id="cb4" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="co"># create an environment from a file (use name in file)</span></span>
-<span id="cb4-2"><a href=""></a><span class="ex">conda</span> env create <span class="at">--file</span> environment.yml</span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a><span class="co"># create an environment from a file (override name in file)</span></span>
-<span id="cb4-5"><a href=""></a><span class="ex">conda</span> env create <span class="at">--file</span> environment.yml <span class="at">--name</span> myname</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="co"># create an environment from a file (use name in file)</span></span>
+<span id="cb6-2"><a href=""></a><span class="ex">conda</span> env create <span class="at">--file</span> environment.yml</span>
+<span id="cb6-3"><a href=""></a></span>
+<span id="cb6-4"><a href=""></a><span class="co"># create an environment from a file (override name in file)</span></span>
+<span id="cb6-5"><a href=""></a><span class="ex">conda</span> env create <span class="at">--file</span> environment.yml <span class="at">--name</span> myname</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>without the <code>--file</code> option, the current <code>environment.yml</code> file will be used.</p>
 <style type="text/css">
@@ -1078,45 +1096,73 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>conda activate &lt;env_name&gt;</code>: activate an environment</li>
 </ul>
 <p>Normally the prompt will change to show the active environment. Default installation have the <code>base</code> environment active at login</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $ conda activate ognigenoma</span>
-<span id="cb5-2"><a href=""></a><span class="kw">(</span><span class="ex">ognigenoma</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="co"># Activate an environment</span></span>
+<span id="cb7-2"><a href=""></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $ conda activate ognigenoma</span>
+<span id="cb7-3"><a href=""></a><span class="kw">(</span><span class="ex">ognigenoma</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>To deactivate an environment, use <code>conda deactivate</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="kw">(</span><span class="ex">ognigenoma</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $ conda deactivate</span>
-<span id="cb6-2"><a href=""></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="co"># Deactivate the current environment</span></span>
+<span id="cb8-2"><a href=""></a><span class="kw">(</span><span class="ex">ognigenoma</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $ conda deactivate</span>
+<span id="cb8-3"><a href=""></a><span class="kw">(</span><span class="ex">base</span><span class="kw">)</span> <span class="ex">gitpod</span> ~ $</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can activate more than one environment at a time. The last activated environment will be active. When you deactivate an environment, the previous environment will be activated.</p>
 </div>
 </section>
 <section id="channels-and-repositories" class="slide level2 smaller">
 <h2>Channels and repositories</h2>
 <ul>
 <li><code>defaults</code>: the default channel for conda packages</li>
-<li><code>bioconda</code>: a channel for bioinformatics software</li>
 <li><code>R</code>: a channel for R packages</li>
+<li><code>bioconda</code>: a channel for bioinformatics software</li>
 <li><code>conda-forge</code>: a community-driven collection of conda packages</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
-<span id="cb7-2"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels conda-forge</span>
-<span id="cb7-3"><a href=""></a></span>
-<span id="cb7-4"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
-<span id="cb7-5"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels bioconda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
+<span id="cb9-2"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels conda-forge</span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co"># add a channel to the list of channels</span></span>
+<span id="cb9-5"><a href=""></a><span class="ex">conda</span> config <span class="at">--add</span> channels bioconda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
 <p>GitPod users: we have set up channels required for the practical with the suggested <em>priority</em> settings. You can see the settings in the <code>.condarc</code> file in your home directory. See more information on conda <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html">Managing Channels</a></p>
+</div>
+</div>
+</div>
 </section>
 <section id="search-for-packages" class="slide level2 smaller">
 <h2>Search for packages</h2>
 <p>Use <code>conda search</code> to search for packages in the configured channels. Wildcards can be used in the search:</p>
-<div class="sourceCode" id="cb8" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="co"># search for a package in the configured channels</span></span>
-<span id="cb8-2"><a href=""></a><span class="ex">conda</span> search samtools</span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a><span class="co"># search for a package in a specific channel</span></span>
-<span id="cb8-5"><a href=""></a><span class="ex">conda</span> search <span class="at">--channel</span> bioconda samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>GitPod users: the channels are already configured for the practicals. You can search any package in the configured channels.</p>
-<h3 id="excercise">Excercise</h3>
+<div class="sourceCode" id="cb10" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="co"># search for a package in the configured channels</span></span>
+<span id="cb10-2"><a href=""></a><span class="ex">conda</span> search samtools</span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="co"># search for a package in a specific channel</span></span>
+<span id="cb10-5"><a href=""></a><span class="ex">conda</span> search <span class="at">--channel</span> bioconda samtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>GitPod users: the channels are already configured for the practicals. You can search any package in the configured channels without specifying the channel.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<h3 id="exercise-1">Exercise</h3>
 <p>Search for the package <code>samtools</code> in the <code>bioconda</code> channel:</p>
 <ol type="1">
-<li>What versions are available?</li>
-<li>What is the latest version? In which channel?</li>
+<li>What versions are available? What is the latest version? In which channel?</li>
 <li>Do the same for <code>r-base</code> package.</li>
 </ol>
+</div>
 </section>
 <section id="install-packages" class="slide level2 smaller">
 <h2>Install packages</h2>
@@ -1127,18 +1173,44 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>--file</code>: specify a file with the list of packages to install</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb9" data-code-line-numbers="1-3|5-6|8-10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="co"># install a package in the active environment</span></span>
-<span id="cb9-2"><a href=""></a><span class="co"># base environment is read-only for GitPod users!</span></span>
-<span id="cb9-3"><a href=""></a><span class="ex">conda</span> install pandas</span>
-<span id="cb9-4"><a href=""></a></span>
-<span id="cb9-5"><a href=""></a><span class="co"># install a package in a specific environment</span></span>
-<span id="cb9-6"><a href=""></a><span class="ex">conda</span> install <span class="at">--name</span> python3.10 pandas</span>
-<span id="cb9-7"><a href=""></a></span>
-<span id="cb9-8"><a href=""></a><span class="co"># install packages from a file in the active environment </span></span>
-<span id="cb9-9"><a href=""></a><span class="co"># (python format)</span></span>
-<span id="cb9-10"><a href=""></a><span class="ex">conda</span> install <span class="at">--file</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<h3 id="exercise-1">Exercise</h3>
+<div class="sourceCode" id="cb11" data-code-line-numbers="1-3|5-6|8-10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href=""></a><span class="co"># install a package in the active environment</span></span>
+<span id="cb11-2"><a href=""></a><span class="co"># base environment is read-only for GitPod users!</span></span>
+<span id="cb11-3"><a href=""></a><span class="ex">conda</span> install pandas</span>
+<span id="cb11-4"><a href=""></a></span>
+<span id="cb11-5"><a href=""></a><span class="co"># install a package in a specific environment</span></span>
+<span id="cb11-6"><a href=""></a><span class="ex">conda</span> install <span class="at">--name</span> python3.10 pandas</span>
+<span id="cb11-7"><a href=""></a></span>
+<span id="cb11-8"><a href=""></a><span class="co"># install packages from a file in the active environment </span></span>
+<span id="cb11-9"><a href=""></a><span class="co"># (python format)</span></span>
+<span id="cb11-10"><a href=""></a><span class="ex">conda</span> install <span class="at">--file</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="exercise-2">Exercise</h3>
 <p>Create an environment with <code>samtools</code>, <code>tabix</code> and <code>bcftools</code> packages. Activate the environment and check if the packages are installed. Then install <code>seqkit</code> package in the same environment.</p>
+</section>
+<section id="understanding-the-environment-exercise" class="slide level2 smaller">
+<h2>Understanding the environment (exercise)</h2>
+<ol type="1">
+<li>Ensure the environment created in the previous exercise is active. Can you find where the <code>samtools</code> executable is located?</li>
+<li>Deactivate the environment and check if the <code>samtools</code> executable is available. Why is it not available?</li>
+<li>Can you figure out how conda makes the executables available in the active environment?</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Hints:</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Use <code>which</code> to find the location of the executable.</li>
+<li>Take a look to the environment variables in the active environment, for example <code>$PATH</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="exporting-an-environment" class="slide level2 smaller">
 <h2>Exporting an environment</h2>
@@ -1148,13 +1220,13 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>--file</code>: specify the file to export the environment to</li>
 <li><code>--no-builds</code>: exclude the build string from the exported file</li>
 </ul>
-<div class="sourceCode" id="cb10" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="co"># export the active environment to a file (using STDOUT)</span></span>
-<span id="cb10-2"><a href=""></a><span class="ex">conda</span> env export <span class="op">&gt;</span> environment.yml</span>
-<span id="cb10-3"><a href=""></a></span>
-<span id="cb10-4"><a href=""></a><span class="co"># export a specific environment to a specific file</span></span>
-<span id="cb10-5"><a href=""></a><span class="ex">conda</span> env export <span class="at">--name</span> python3.10 <span class="at">--file</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12" data-code-line-numbers="1-2|4-5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="co"># export the active environment to a file (using STDOUT)</span></span>
+<span id="cb12-2"><a href=""></a><span class="ex">conda</span> env export <span class="op">&gt;</span> environment.yml</span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="co"># export a specific environment to a specific file</span></span>
+<span id="cb12-5"><a href=""></a><span class="ex">conda</span> env export <span class="at">--name</span> python3.10 <span class="at">--file</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<h3 id="excercise-1">Excercise</h3>
+<h3 id="excercise">Excercise</h3>
 <p>Export an environment to a file; then export the same environment with <code>--no-builds</code> option to another file. Compare the two files with <code>diff</code> (try <code>diff -y</code> for a more readable output).</p>
 <aside class="notes">
 <p>does people know STDOUT/STDERR/STDIN?</p>
@@ -1186,6 +1258,79 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li class="fragment"><code>conda clean --all</code>: clean the cache and unused packages</li>
 </ul>
 </div>
+</section>
+<section id="practical-with-conda-get-genome-data" class="slide level2 smaller">
+<h2>Practical with conda: get genome data</h2>
+<p>Let’s collect some genome data to make an example. We will use the CLI tools made available by NCBI, <code>datasets</code> and <code>dataformat</code>, to collect ARS-UCD1.2 data from the NCBI database. Next, we will use <code>seqkit</code> to manipulate file headers and then we will <code>bgzip</code> to pack the sequence files.</p>
+<ol type="1">
+<li><p>Create one conda environment with <code>ncbi-datasets-cli</code>, <code>jq</code>, <code>seqkit</code> and <code>tabix</code> packages</p></li>
+<li><p>Go the <a href="https://www.ncbi.nlm.nih.gov/datasets/">NCBI Datasets</a> page and search for <em>cow</em> (<code>Bos taurus (cattle)</code> will be suggested). You will open the new page for <a href="https://www.ncbi.nlm.nih.gov/datasets/taxonomy/9913/">NCBI Taxonomy ID: <code>9913</code></a>.</p></li>
+<li><p>Click on <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002263795.3/">ARS-UCD2.0</a> link, below the <em>Genome</em> section an over the <em>Download</em> button (don’t download the genome from this page)</p></li>
+</ol>
+</section>
+<section id="genome-assembly-and-legacy-versions" class="slide level2 smaller">
+<h2>Genome assembly and legacy versions</h2>
+<p>In the practical we will use the ARS-UCD1.2 (<code>GCF_002263795.1</code>) version of the genome, however the latest version is ARS-UCD2.0 (<code>GCF_002263795.3</code>):</p>
+<ol type="1">
+<li>Go to the bottom of the page and search for the <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002263795.1/">GCF_002263795.1</a> accession for the ARS-UCD1.2 version (will be in the refseq column) and click on it.</li>
+<li>In the top of the page, near the <em>Download</em> button we have some different ways to collect data. We don’t want to download the genome on on our laptop, so click on the <em>datasets</em> tab, just near the download button.</li>
+<li>A pop-up window will appear with the command to download the genome data. Copy the command by clicking on the <em>Copy</em> button.</li>
+</ol>
+</section>
+<section id="ncbi-datasets-cli" class="slide level2 smaller">
+<h2>NCBI Datasets CLI</h2>
+<p><code>datasets</code> is a command-line tool that is used to query and download biological sequence data across all domains of life from NCBI databases. See the <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/datasets/">documentation</a> for more information.</p>
+<p>For example, retrieve the same information as before using the accession number: <em>pipe</em> the result to <a href="https://jqlang.github.io/jq/manual/">jq</a> to format the output:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="ex">datasets</span> summary genome accession GCF_002263795.1 <span class="kw">|</span> <span class="ex">jq</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The same command can be use to download the genome data: paste the command you’ve copied from the NCBI Taxonomy page and add two additional options:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href=""></a><span class="ex">datasets</span> download genome accession GCF_002263795.1 <span class="dt">\</span></span>
+<span id="cb14-2"><a href=""></a>  <span class="at">--include</span> gff3,rna,cds,protein,genome,seq-report <span class="dt">\</span></span>
+<span id="cb14-3"><a href=""></a>  <span class="at">--dehydrated</span> <span class="at">--filename</span> ARS-UCD1.2.zip</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note:</strong></p>
+</div>
+<div class="callout-content">
+<p>The <code>\</code> (escape character) is used to break the command in multiple lines: it is not necessary if you paste the command in one line: but if you paste the command in multiple lines it prevents the command from being executed before you finish typing it.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ncbi-datasets-cli-2" class="slide level2 smaller">
+<h2>NCBI Datasets CLI (2)</h2>
+<ul>
+<li><code>--dehydrated</code>: download the data in a dehydrated format: the data is downloaded in a format that can be rehydrated using the <code>datasets</code> tool. This is required if you need to download a lot of data. See <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/how-tos/genomes/large-download/">Download large genome data packages</a> for more information</li>
+<li><code>--filename</code>: specify the name of the file to download the data to</li>
+<li><code>--include</code>: specify the data types to download: if we are not interested in all data types we can exclude some of them</li>
+</ul>
+<p>Now unzip the downloaded archive in a new directory (since the archive will place stuff in the current directory):</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href=""></a><span class="fu">unzip</span> ARS-UCD1.2.zip <span class="at">-d</span> ARS-UCD1.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>-d</code>: specify the directory to extract the files to</li>
+</ul>
+</section>
+<section id="rehydrate-the-data" class="slide level2 smaller">
+<h2>Rehydrate the data</h2>
+<p>Take a look to see the downloaded data: we have not any data! the only data we have are some metadata and the URL were files can be downloaded.</p>
+<p>Is now time to rehydrate data:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="ex">datasets</span> rehydrate <span class="at">--directory</span> ARS-UCD1.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>--directory</code>: this is the top level directory in which you have decompressed data with <code>unzip</code></li>
+</ul>
+<p>Now the data should be downloaded in the same directory where the metadata is located. You can check the data with <code>ls</code> or <code>tree</code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href=""></a><span class="ex">tree</span> <span class="at">-phC</span> ARS-UCD1.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>tree</code>: list the directory structure in a tree-like format
+<ul>
+<li><code>-p</code>: show permissions</li>
+<li><code>-h</code>: show sizes in human readable format</li>
+<li><code>-C</code>: colorize the output</li>
+</ul></li>
+</ul>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>Livestock pangenomes 2024 - Practical 1 - 2024/07/22</p>
