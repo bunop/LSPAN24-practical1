@@ -2,7 +2,7 @@
 title: "Handling different data types, quality checking and preparing data files"
 author: "Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio"
 css: styles.css
-format: 
+format:
   revealjs:
     slide-number: c/t
     chalkboard: true
@@ -11,15 +11,15 @@ format:
 
 ## Practical introduction
 
-To follow this and other practicals, a working *NIX environment is required. 
+To follow this and other practicals, a working *NIX environment is required.
 We suggest to use a Linux distribution, MacOS or Windows with
 [WSL2](https://learn.microsoft.com/en-us/windows/wsl/about).
 
 If you don't have a working environment, you can use [GitPod](https://www.gitpod.io/),
 a cloud-based IDE that allows you to work on your projects from anywhere. We suggest:
 
-*   A [GitHub](https://github.com/) account to manage authentication. 
-*   A [Linkedin](https://www.linkedin.com/) account to get access to 50 hours of 
+*   A [GitHub](https://github.com/) account to manage authentication.
+*   A [Linkedin](https://www.linkedin.com/) account to get access to 50 hours of
     free usage per month.
 
 ::: notes
@@ -44,8 +44,8 @@ Add your *linkedin* account to get 50 hours of free usage per month
 ![](img/gitpod_login.png){fig-align="center" .r-stretch}
 
 ::: notes
-Select your preferred editor (VS code is recommened), 
-theme, and profile details, click continue and your 
+Select your preferred editor (VS code is recommended),
+theme, and profile details, click continue and your
 account will be created and ready to use.
 :::
 
@@ -78,7 +78,7 @@ activity, and the instance size (if any).
 
 ![](img/gitpod_create_workspace.png){fig-align="center" .r-stretch}
 
-Click [here](https://gitpod.io/#https://github.com/bunop/LSPAN24-practical1) 
+Click [here](https://gitpod.io/#https://github.com/bunop/LSPAN24-practical1)
 to create a new workspace for this project!
 
 ::: notes
@@ -94,7 +94,7 @@ your free credits **faster**
 Take a look at VS Code tutorial, for example [this one](https://www.youtube.com/watch?v=B-s71n0dHUk)
 
 ::: notes
-Please note the 4 different sections of the VS Code interface: at the bottom is 
+Please note the 4 different sections of the VS Code interface: at the bottom is
 the terminal, on the left is the file explorer, in the middle is the editor, and
 on the left-up corner is the hamburger menu that allows you to access the settings
 and the extensions.
@@ -107,7 +107,7 @@ and the extensions.
 
 ::: notes
 Remember to stop your workspace when you are not using it, to save your free credits.
-You can stop your current workspace by clicking on the hamburger menu fromn VScode 
+You can stop your current workspace by clicking on the hamburger menu from VScode
 or from the hamburger menu in the workspace list
 :::
 
@@ -139,21 +139,21 @@ gitpod workspace ssh <workspace ID>
     +   Only files and directories inside `/workspace` directory are preserved.
 *   Workspaces are deleted after **14 days**
     +   remember to save your work
-*   Please see 
+*   Please see
     [Workspace Lifecycle](https://www.gitpod.io/docs/configure/workspaces/workspace-lifecycle)
     for more information
 :::
 
 ## Using the Command Line
 
-For scientific computing, a command-line interface (CLI) is often essential.
-This means typing out commands instead of using a mouse.
+For scientific computing, a *command-line interface* (CLI) is often essential.
+This means typing out commands instead of using a *graphical user interface* (GUI).
 
 ::: incremental
 *   Numerous tools are exclusively available as command-line utilities.
 *   Once familiar, the CLI can be faster and more precise.
 *   Tasks can be easily automated through scripting.
-*   High-performance computing (HPC) environments often rely solely on CLI access.
+*   *High-performance computing* (HPC) environments often rely solely on CLI access.
 :::
 
 ## Filesystem Hierarchy {.smaller}
@@ -200,15 +200,16 @@ The filesystem is organized in a tree-like structure, with the root directory
 Consider this example:
 
 ```{.txt}
-dir1/
-├── dir2
-│   └── file2
-└── file1
+├── dir1
+│   ├── dir2
+│   │   └── file2
+│   └── file1
+└── dir3
 ```
 
 `../file1` is relative to `file2` current position (`dir2`)
 
-`../../dir1` is relative to `file2` current position (`dir2`)
+`../../dir3` is relative to `file2` current position (`dir2`)
 
 ## Navigate the Filesystem {.smaller}
 
@@ -238,13 +239,13 @@ rule is:
 *   `ls -l`: List files with details.
 *   `ls -a`: List all files, including hidden ones.
 *   `ls -lh`: List files with human-readable sizes.
-*   `ls -t`: List files by modification time.
-*   `ls -S`: List files by size.
+*   `ls -t`: List files sorted by modification time.
+*   `ls -S`: List files sorted by size.
 *   `ls -R`: List files recursively.
-*   `ls -r`: List files in reverse order.
+*   `ls -r`: List sorted files in reverse order.
 *   `ls -1`: List files in a single column.
 
-You can combine options, e.g., `ls -lhSr /home/user/data` to list files 
+You can combine options, e.g., `ls -lhSr /home/user/data` to list files
 in `/home/user/data` folder with *human-readable sizes*
 ordered by *size* in *ascending* order (bigger files on *bottom*).
 
@@ -288,7 +289,7 @@ Wildcards are characters that help match file names based on patterns. Ex:
 -   `?`: Matches a single character (`file?` matches `file1`, `file2`, but not `fileverylong`)
 -   `[ ]`: Matches any character within the brackets (`file[12]` matches `file1`, `file2`, but
     not `file3` or `fileverylong`. `file[1-9]` to match file with any digit)
--   `{ }`: Matches any of the comma-separated word (`file{1,2,verylong}` 
+-   `{ }`: Matches any of the comma-separated word (`file{1,2,verylong}`
     matches `file1`, `file2` and `fileverylong`)
 :::
 
@@ -299,12 +300,12 @@ Some characters have special meanings in the shell:
 ::: incremental
 *   `~`: expands to the home directory (`cd ~`, `cd ~/data`)
 *   `$`: refers to an environment variable (`echo $HOME`, `echo $PWD`)
-*   `;`: separates commands in one line (execute commands with this order e.g. 
+*   `;`: separates commands in one line (execute commands with this order e.g.
     `cd /tmp; ls` first change to `/tmp` then list files)
 *   `\`: escapes the next character (`ls file\ with\ spaces.txt`)
 *   `'`: preserves the literal value of all characters enclosed
     (`echo 'Today is $(date)'` will print `Today is $(date)`)
-*   `"`: preserves the literal value of all characters enclosed, but 
+*   `"`: preserves the literal value of all characters enclosed, but
     allow for variable expansion, command substitution, and escape sequences
     (`echo "Today is $(date)"` will print `Today is <current date>`)
 *   `#`: comments the rest of the line (`# this is a comment`). Not executed.
@@ -408,8 +409,8 @@ Environment variables are key-value pairs that store information about the envir
 
 . . .
 
-You can access environment variables using `$`, for example `echo $HOME` prints 
-the home directory (to *stdout*). 
+You can access environment variables using `$`, for example `echo $HOME` prints
+the home directory (to *stdout*).
 
 You can use environment variables in scripts or commands, for example:
 `cd $HOME` or `cp $OLDPWD/file.txt .`
@@ -519,7 +520,7 @@ There are many utilities available in Unix-like systems. Some common utilities:
 *   Display the first 5 lines of `files.txt` using `head` command.
 *   Rename `files.txt` to `all_files.txt` using `mv` command.
 *   `ls` a non-existent file and redirect the error to `errors.txt`.
-*   Concatenate `all_files.txt` and `errors.txt` using `cat` command and redirect 
+*   Concatenate `all_files.txt` and `errors.txt` using `cat` command and redirect
     the output to `all_files_errors.txt`.
 *   Display manual pages for `bash` (`man bash`). Search for `Commands for Moving` section:
     How I can move to the beginning of the line? How I can move to the next word?
@@ -574,7 +575,7 @@ You can create (`-c`) and extract (`-x`) tar archives using `tar` command. For e
 
 `tar -cvf archive.tar file1 file2`
 
-This command creates `archive.tar` containing `file1` and `file2`. 
+This command creates `archive.tar` containing `file1` and `file2`.
 **This archive is not compressed** and have the same size of the sum of
 `file1` and `file2` sizes. To extract:
 
@@ -603,7 +604,7 @@ followed by the archive name.
 
 ## Editors
 
-There are many text editors available in Unix-like systems. 
+There are many text editors available in Unix-like systems.
 Here some common editors available in terminal:
 
 ::: incremental
@@ -621,8 +622,8 @@ a powerful and highly configurable text editor.
 
 ## Introduction to virtual environment
 
-Virtual environments are isolated environments for software development. 
-They allow you to install dependencies and packages without affecting the system-wide installation. 
+Virtual environments are isolated environments for software development.
+They allow you to install dependencies and packages without affecting the system-wide installation.
 Some common tools for creating virtual environments:
 
 -   Python: [virtualenv](https://virtualenv.pypa.io/en/latest/),
@@ -711,7 +712,7 @@ To deactivate an environment, use `conda deactivate`:
 (base) gitpod ~ $
 ```
 
-You can activate more than one environment at a time. 
+You can activate more than one environment at a time.
 The last activated environment will be active.
 When you deactivate an environment, the previous environment will be activated.
 
@@ -751,7 +752,7 @@ conda search --channel bioconda samtools
 ```
 ::: {.callout-tip}
 GitPod users: the channels are already configured for the practicals.
-You can search any package in the configured channels without specifying 
+You can search any package in the configured channels without specifying
 the channel.
 :::
 
@@ -759,7 +760,7 @@ the channel.
 
 ### Exercise
 
-Search for the package `samtools` in the `bioconda` channel: 
+Search for the package `samtools` in the `bioconda` channel:
 
 1. What versions are available? What is the latest version? In which channel?
 2. Do the same for `r-base` package.
@@ -778,7 +779,7 @@ conda install pandas
 # install a package in a specific environment
 conda install --name python3.10 pandas
 
-# install packages from a file in the active environment 
+# install packages from a file in the active environment
 # (python format)
 conda install --file requirements.txt
 ```
@@ -789,6 +790,11 @@ Create an environment with `samtools`, `tabix` and `bcftools` packages.
 Activate the environment and check if the packages are installed. Then
 install `seqkit` package in the same environment.
 
+::: notes
+We are not creating an environment, the environment is already
+present when I install a package
+:::
+
 ## Understanding the environment (exercise) {.smaller}
 
 1.    Ensure the environment created in the previous exercise is active. Can
@@ -797,7 +803,7 @@ install `seqkit` package in the same environment.
       available. Why is it not available?
 3.    Can you figure out how conda makes the executables available in the
       active environment?
-      
+
 . . .
 
 ::: {.callout-tip}
@@ -823,7 +829,7 @@ conda env export --name python3.10 --file environment.yml
 
 . . .
 
-### Excercise
+### Exercise
 
 Export an environment to a file; then export the same environment
 with `--no-builds` option to another file. Compare the two files
@@ -852,14 +858,14 @@ does people know STDOUT/STDERR/STDIN?
 Let's collect some genome data to make an example. We will use the CLI tools
 made available by NCBI, `datasets` and `dataformat`, to collect ARS-UCD1.2
 data from the NCBI database. Next, we will use `seqkit` to manipulate file
-headers and then we will `bgzip` to pack the sequence files. 
+headers and then we will `bgzip` to pack the sequence files.
 
 1.    Create one conda environment with `ncbi-datasets-cli`, `jq`, `seqkit` and `tabix`
       packages
 
 2.    Go the [NCBI Datasets](https://www.ncbi.nlm.nih.gov/datasets/) page
       and search for *cow* (`Bos taurus (cattle)` will be suggested). You
-      will open the new page for 
+      will open the new page for
       [NCBI Taxonomy ID: `9913`](https://www.ncbi.nlm.nih.gov/datasets/taxonomy/9913/).
 3.    Click on [ARS-UCD2.0](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002263795.3/)
       link, below the *Genome* section an over the *Download* button (don't
@@ -868,10 +874,10 @@ headers and then we will `bgzip` to pack the sequence files.
 ## Genome assembly and legacy versions {.smaller}
 
 In the practical we will use the ARS-UCD1.2 (`GCF_002263795.1`) version of the genome,
-however the latest version is ARS-UCD2.0 (`GCF_002263795.3`): 
+however the latest version is ARS-UCD2.0 (`GCF_002263795.3`):
 
 1.    Go to the bottom of the page and search for the
-      [GCF_002263795.1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002263795.1/) 
+      [GCF_002263795.1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002263795.1/)
       accession for the ARS-UCD1.2 version (will be in the refseq column)
       and click on it.
 2.    In the top of the page, near the *Download* button we have some
@@ -885,8 +891,8 @@ however the latest version is ARS-UCD2.0 (`GCF_002263795.3`):
 
 `datasets` is a command-line tool that is used to query and download biological
 sequence data across all domains of life from NCBI databases. See the
-[documentation](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/datasets/) 
-for more information. 
+[documentation](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/datasets/)
+for more information.
 
 For example, retrieve the same information as before using the accession number:
 *pipe* the result to [jq](https://jqlang.github.io/jq/manual/) to format the output:
@@ -915,13 +921,13 @@ before you finish typing it.
 
 * `--dehydrated`: download the data in a dehydrated format: the data is
   downloaded in a format that can be rehydrated using the `datasets` tool.
-  This is required if you need to download a lot of data. See 
+  This is required if you need to download a lot of data. See
   [Download large genome data packages](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/how-tos/genomes/large-download/)
   for more information
 * `--filename`: specify the name of the file to download the data to
 * `--include`: specify the data types to download: if we are not interested
   in all data types we can exclude some of them
-  
+
 Now unzip the downloaded archive in a new directory (since the archive
 will place stuff in the current directory):
 
@@ -942,9 +948,9 @@ Is now time to rehydrate data:
 datasets rehydrate --directory ARS-UCD1.2
 ```
 
-* `--directory`: this is the top level directory in which you have 
+* `--directory`: this is the top level directory in which you have
   decompressed data with `unzip`
-  
+
 Now the data should be downloaded in the same directory where the
 metadata is located. You can check the data with `ls` or `tree`:
 
@@ -1001,9 +1007,9 @@ dataformat tsv genome-seq --inputfile sequence_report.jsonl
   + `genome-seq`: the type of source data to transform
   + `--inputfile`: the input file to transform
   + `--fields`: specify the fields to include in the output
-  
+
 ::: {.callout-note}
-The `dataformat` command requires JSON-lines formatted NCBI Datasets reports 
+The `dataformat` command requires JSON-lines formatted NCBI Datasets reports
 into other formats. It can work in a pipe with the `datasets` command, however
 it requires the `--as-json-lines` option:
 
@@ -1040,7 +1046,7 @@ seqkit grep -f ids.txt GCF_002263795.1_ARS-UCD1.2_genomic.fna > ARS-UCD1.2_chrom
 
 ## Rename sequences {.smaller}
 
-Now the sequence names are the RefSeq accession numbers: 
+Now the sequence names are the RefSeq accession numbers:
 Let's rename the sequences to include the chromosome name as *id*: this
 could be done again with `seqkit`, with a text file with the
 old name as key and the new name as value:
@@ -1050,7 +1056,7 @@ jq -c 'select(.role == "assembled-molecule")' sequence_report.jsonl \
   | dataformat tsv genome-seq --fields refseq-seq-acc,chr-name > alias.txt
 ```
 
-This is the same command we use before, but now we are extracting also the 
+This is the same command we use before, but now we are extracting also the
 chromosome number. Now we can use `seqkit` to rename the sequences:
 
 ```{.bash}
@@ -1063,7 +1069,7 @@ seqkit replace -p '^(\S+)(.+?)$' -r '{kv} \$1\${2}' -k alias.txt \
   + `-r`: the replacement pattern
   + `-k`: the key-value file with the replacements
   + `-o`: the output file
-  
+
 
 ## Compress the genome sequence {.smaller}
 
@@ -1083,7 +1089,7 @@ seqkit stats ARS-UCD1.2_chromosomes_renamed.fna.gz
 seqkit seq -n ARS-UCD1.2_chromosomes_renamed.fna.gz
 ```
 
-### Excercise
+### Exercise
 
 Can you optimize the previous commands to avoid creating intermediate files?
 
@@ -1092,7 +1098,3 @@ You can use pipes to connect the output of a command to the input of another com
 Ideally, the original file downloaded from NCBI should not be modified (but can
 be compressed)
 :::
-
-
-
-
