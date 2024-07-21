@@ -437,7 +437,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <p>Add your <em>linkedin</em> account to get 50 hours of free usage per month</p>
 
 <img data-src="img/gitpod_login.png" class="r-stretch quarto-figure quarto-figure-center"><aside class="notes">
-<p>Select your preferred editor (VS code is recommened), theme, and profile details, click continue and your account will be created and ready to use.</p>
+<p>Select your preferred editor (VS code is recommended), theme, and profile details, click continue and your account will be created and ready to use.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -526,7 +526,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <h2>Turning off Workspaces</h2>
 <p><img data-src="img/gitpod_stopworkspace.1.png" class="absolute" style="top: 100px; left: 0px; width: auto; height: 500px; "> <img data-src="img/gitpod_stopworkspace.2.png" class="absolute" style="bottom: 0px; right: 0px; width: 700px; height: auto; "></p>
 <aside class="notes">
-<p>Remember to stop your workspace when you are not using it, to save your free credits. You can stop your current workspace by clicking on the hamburger menu fromn VScode or from the hamburger menu in the workspace list</p>
+<p>Remember to stop your workspace when you are not using it, to save your free credits. You can stop your current workspace by clicking on the hamburger menu from VScode or from the hamburger menu in the workspace list</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -572,13 +572,13 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 </section>
 <section id="using-the-command-line" class="slide level2">
 <h2>Using the Command Line</h2>
-<p>For scientific computing, a command-line interface (CLI) is often essential. This means typing out commands instead of using a mouse.</p>
+<p>For scientific computing, a <em>command-line interface</em> (CLI) is often essential. This means typing out commands instead of using a <em>graphical user interface</em> (GUI).</p>
 <div>
 <ul>
 <li class="fragment">Numerous tools are exclusively available as command-line utilities.</li>
 <li class="fragment">Once familiar, the CLI can be faster and more precise.</li>
 <li class="fragment">Tasks can be easily automated through scripting.</li>
-<li class="fragment">High-performance computing (HPC) environments often rely solely on CLI access.</li>
+<li class="fragment"><em>High-performance computing</em> (HPC) environments often rely solely on CLI access.</li>
 </ul>
 </div>
 </section>
@@ -626,12 +626,13 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 </div>
 <div class="fragment">
 <p>Consider this example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href=""></a>dir1/</span>
-<span id="cb2-2"><a href=""></a>├── dir2</span>
-<span id="cb2-3"><a href=""></a>│   └── file2</span>
-<span id="cb2-4"><a href=""></a>└── file1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href=""></a>├── dir1</span>
+<span id="cb2-2"><a href=""></a>│   ├── dir2</span>
+<span id="cb2-3"><a href=""></a>│   │   └── file2</span>
+<span id="cb2-4"><a href=""></a>│   └── file1</span>
+<span id="cb2-5"><a href=""></a>└── dir3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>../file1</code> is relative to <code>file2</code> current position (<code>dir2</code>)</p>
-<p><code>../../dir1</code> is relative to <code>file2</code> current position (<code>dir2</code>)</p>
+<p><code>../../dir3</code> is relative to <code>file2</code> current position (<code>dir2</code>)</p>
 </div>
 </section>
 <section id="navigate-the-filesystem" class="slide level2 smaller">
@@ -659,10 +660,10 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>ls -l</code>: List files with details.</li>
 <li><code>ls -a</code>: List all files, including hidden ones.</li>
 <li><code>ls -lh</code>: List files with human-readable sizes.</li>
-<li><code>ls -t</code>: List files by modification time.</li>
-<li><code>ls -S</code>: List files by size.</li>
+<li><code>ls -t</code>: List files sorted by modification time.</li>
+<li><code>ls -S</code>: List files sorted by size.</li>
 <li><code>ls -R</code>: List files recursively.</li>
-<li><code>ls -r</code>: List files in reverse order.</li>
+<li><code>ls -r</code>: List sorted files in reverse order.</li>
 <li><code>ls -1</code>: List files in a single column.</li>
 </ul>
 <p>You can combine options, e.g., <code>ls -lhSr /home/user/data</code> to list files in <code>/home/user/data</code> folder with <em>human-readable sizes</em> ordered by <em>size</em> in <em>ascending</em> order (bigger files on <em>bottom</em>).</p>
@@ -724,7 +725,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <ul>
 <li class="fragment"><code>~</code>: expands to the home directory (<code>cd ~</code>, <code>cd ~/data</code>)</li>
 <li class="fragment"><code>$</code>: refers to an environment variable (<code>echo $HOME</code>, <code>echo $PWD</code>)</li>
-<li class="fragment"><code>;</code>: separates commands in one line (execute commands with this order e.g.&nbsp; <code>cd /tmp; ls</code> first change to <code>/tmp</code> then list files)</li>
+<li class="fragment"><code>;</code>: separates commands in one line (execute commands with this order e.g. <code>cd /tmp; ls</code> first change to <code>/tmp</code> then list files)</li>
 <li class="fragment"><code>\</code>: escapes the next character (<code>ls file\ with\ spaces.txt</code>)</li>
 <li class="fragment"><code>'</code>: preserves the literal value of all characters enclosed (<code>echo 'Today is $(date)'</code> will print <code>Today is $(date)</code>)</li>
 <li class="fragment"><code>"</code>: preserves the literal value of all characters enclosed, but allow for variable expansion, command substitution, and escape sequences (<code>echo "Today is $(date)"</code> will print <code>Today is &lt;current date&gt;</code>)</li>
@@ -1180,11 +1181,24 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <span id="cb11-5"><a href=""></a><span class="co"># install a package in a specific environment</span></span>
 <span id="cb11-6"><a href=""></a><span class="ex">conda</span> install <span class="at">--name</span> python3.10 pandas</span>
 <span id="cb11-7"><a href=""></a></span>
-<span id="cb11-8"><a href=""></a><span class="co"># install packages from a file in the active environment </span></span>
+<span id="cb11-8"><a href=""></a><span class="co"># install packages from a file in the active environment</span></span>
 <span id="cb11-9"><a href=""></a><span class="co"># (python format)</span></span>
 <span id="cb11-10"><a href=""></a><span class="ex">conda</span> install <span class="at">--file</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <h3 id="exercise-2">Exercise</h3>
 <p>Create an environment with <code>samtools</code>, <code>tabix</code> and <code>bcftools</code> packages. Activate the environment and check if the packages are installed. Then install <code>seqkit</code> package in the same environment.</p>
+<aside class="notes">
+<p>We are not creating an environment, the environment is already present when I install a package</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="understanding-the-environment-exercise" class="slide level2 smaller">
 <h2>Understanding the environment (exercise)</h2>
@@ -1200,7 +1214,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Hints:</strong></p>
+<p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
 <ul>
@@ -1226,7 +1240,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <span id="cb12-4"><a href=""></a><span class="co"># export a specific environment to a specific file</span></span>
 <span id="cb12-5"><a href=""></a><span class="ex">conda</span> env export <span class="at">--name</span> python3.10 <span class="at">--file</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<h3 id="excercise">Excercise</h3>
+<h3 id="exercise-3">Exercise</h3>
 <p>Export an environment to a file; then export the same environment with <code>--no-builds</code> option to another file. Compare the two files with <code>diff</code> (try <code>diff -y</code> for a more readable output).</p>
 <aside class="notes">
 <p>does people know STDOUT/STDERR/STDIN?</p>
@@ -1292,7 +1306,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note:</strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
 <p>The <code>\</code> (escape character) is used to break the command in multiple lines: it is not necessary if you paste the command in one line: but if you paste the command in multiple lines it prevents the command from being executed before you finish typing it.</p>
@@ -1331,6 +1345,109 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
 <li><code>-C</code>: colorize the output</li>
 </ul></li>
 </ul>
+</section>
+<section id="deal-with-genome-sequence" class="slide level2 smaller">
+<h2>Deal with genome sequence</h2>
+<p>Take a minute to look at the files you have downloaded, especially the genome sequence: how many sequences are in the file? what is the format of the file?</p>
+<p>We can use grep <code>'&gt;'</code> to extract the sequence names from a fasta file and then counting the number of lines, however we can use a fasta/fastq manipulation program like <a href="https://bioinf.shenwei.me/seqkit/">seqkit</a>, which can do this and much more:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href=""></a><span class="ex">seqkit</span> stats GCF_002263795.1_ARS-UCD1.2_genomic.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>seqkit stats</code>: show statistics for the input file</li>
+</ul>
+<p>There are a lot of sequences in the file, you can inspect the sequence names with</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href=""></a><span class="ex">seqkit</span> seq <span class="at">-n</span> GCF_002263795.1_ARS-UCD1.2_genomic.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>seqkit seq</code>: transform sequences (extract ID, filter by length, remove gaps, reverse complement…)
+<ul>
+<li><code>-n</code>: only print names/sequence headers</li>
+<li><code>-i</code>: print IDs instead of full headers</li>
+</ul></li>
+</ul>
+</section>
+<section id="sequence-report" class="slide level2 smaller">
+<h2>Sequence report</h2>
+<p>The <code>sequence_report.jsonl</code> file contains information about the sequences in the genome assembly. We can use <code>jq</code> to inspect the file, or we can use the <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/dataformat/">dataformat</a> command to transform this information in a table:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href=""></a><span class="ex">dataformat</span> tsv genome-seq <span class="at">--inputfile</span> sequence_report.jsonl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>dataformat tsv</code>: transform the input data in a tab-separated format
+<ul>
+<li><code>genome-seq</code>: the type of source data to transform</li>
+<li><code>--inputfile</code>: the input file to transform</li>
+<li><code>--fields</code>: specify the fields to include in the output</li>
+</ul></li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The <code>dataformat</code> command requires JSON-lines formatted NCBI Datasets reports into other formats. It can work in a pipe with the <code>datasets</code> command, however it requires the <code>--as-json-lines</code> option:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href=""></a><span class="ex">datasets</span> summary genome accession GCF_002263795.1 <span class="at">--as-json-lines</span> <span class="kw">|</span> <span class="ex">dataformat</span> tsv genome <span class="kw">|</span> <span class="fu">less</span> <span class="at">-S</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="extract-chromosomes-from-genome" class="slide level2 smaller">
+<h2>Extract chromosomes from genome</h2>
+<p>Suppose we need to get rid of <em>un-assembled sequences</em> from the genome: we can use <code>seqkit</code> to extract sequences by name. First, extract the sequences we want <em>by ids</em>:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href=""></a><span class="ex">jq</span> <span class="at">-c</span> <span class="st">'select(.role == "assembled-molecule")'</span> sequence_report.jsonl <span class="dt">\</span></span>
+<span id="cb22-2"><a href=""></a>  <span class="kw">|</span> <span class="ex">dataformat</span> tsv genome-seq <span class="at">--fields</span> refseq-seq-acc <span class="op">&gt;</span> ids.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>-c</code>: compact output (required by <code>dataformat</code> as input)</li>
+<li><code>select(.role == "assembled-molecule")</code>: select only sequences that are assembled molecules by their role</li>
+<li><code>refseq-seq-acc</code>: the field to extract from the input data</li>
+</ul>
+<p>Now we can use <code>seqkit</code> to extract the sequences by ids:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href=""></a><span class="ex">seqkit</span> grep <span class="at">-f</span> ids.txt GCF_002263795.1_ARS-UCD1.2_genomic.fna <span class="op">&gt;</span> ARS-UCD1.2_chromosomes.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="exercise-4">Exercise</h3>
+<ul>
+<li>Can you create the <em>sequence ids</em> file using <code>awk</code>, <code>cut</code> or <code>grep</code> instead of <code>jq</code>?</li>
+</ul>
+</section>
+<section id="rename-sequences" class="slide level2 smaller">
+<h2>Rename sequences</h2>
+<p>Now the sequence names are the RefSeq accession numbers: Let’s rename the sequences to include the chromosome name as <em>id</em>: this could be done again with <code>seqkit</code>, with a text file with the old name as key and the new name as value:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href=""></a><span class="ex">jq</span> <span class="at">-c</span> <span class="st">'select(.role == "assembled-molecule")'</span> sequence_report.jsonl <span class="dt">\</span></span>
+<span id="cb24-2"><a href=""></a>  <span class="kw">|</span> <span class="ex">dataformat</span> tsv genome-seq <span class="at">--fields</span> refseq-seq-acc,chr-name <span class="op">&gt;</span> alias.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is the same command we use before, but now we are extracting also the chromosome number. Now we can use <code>seqkit</code> to rename the sequences:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href=""></a><span class="ex">seqkit</span> replace <span class="at">-p</span> <span class="st">'^(\S+)(.+?)$'</span> <span class="at">-r</span> <span class="st">'{kv} \$1\${2}'</span> <span class="at">-k</span> alias.txt <span class="dt">\</span></span>
+<span id="cb25-2"><a href=""></a>  <span class="at">-o</span> ARS-UCD1.2_chromosomes_renamed.fna ARS-UCD1.2_chromosomes.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>seqkit replace</code>: replace patterns in sequences
+<ul>
+<li><code>-p</code>: the pattern to search for</li>
+<li><code>-r</code>: the replacement pattern</li>
+<li><code>-k</code>: the key-value file with the replacements</li>
+<li><code>-o</code>: the output file</li>
+</ul></li>
+</ul>
+</section>
+<section id="compress-the-genome-sequence" class="slide level2 smaller">
+<h2>Compress the genome sequence</h2>
+<p>The last operation can be to compress the genome sequence file: we can do this with <a href="https://www.htslib.org/doc/bgzip.html"><code>bgzip</code></a> in order to have a compressed file that can be indexed with other software like <code>samtools</code>:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href=""></a><span class="ex">bgzip</span> ARS-UCD1.2_chromosomes_renamed.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Check that sequence names are in the proper format</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href=""></a><span class="ex">seqkit</span> stats ARS-UCD1.2_chromosomes_renamed.fna.gz</span>
+<span id="cb27-2"><a href=""></a><span class="ex">seqkit</span> seq <span class="at">-n</span> ARS-UCD1.2_chromosomes_renamed.fna.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="exercise-5">Exercise</h3>
+<p>Can you optimize the previous commands to avoid creating intermediate files?</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>You can use pipes to connect the output of a command to the input of another command. Ideally, the original file downloaded from NCBI should not be modified (but can be compressed)</p>
+</div>
+</div>
+</div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>Livestock pangenomes 2024 - Practical 1 - 2024/07/22</p>
@@ -1390,7 +1507,7 @@ Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
