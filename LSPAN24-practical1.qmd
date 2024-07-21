@@ -4,6 +4,7 @@ author: "Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio"
 css: styles.css
 format: 
   revealjs:
+    slide-number: c/t
     chalkboard: true
     footer: "Livestock pangenomes 2024 - Practical 1 - 2024/07/22"
 ---
@@ -800,8 +801,6 @@ install `seqkit` package in the same environment.
 . . .
 
 ::: {.callout-tip}
-## Hints:
-
 -   Use `which` to find the location of the executable.
 -   Take a look to the environment variables in the active environment, for
     example `$PATH`.
@@ -906,7 +905,6 @@ datasets download genome accession GCF_002263795.1 \
 ```
 
 ::: {.callout-note}
-## Note:
 The `\` (escape character) is used to break the command in multiple lines:
 it is not necessary if you paste the command in one line: but if you paste
 the command in multiple lines it prevents the command from being executed
@@ -958,3 +956,143 @@ tree -phC ARS-UCD1.2
   + `-p`: show permissions
   + `-h`: show sizes in human readable format
   + `-C`: colorize the output
+
+## Deal with genome sequence {.smaller}
+
+Take a minute to look at the files you have downloaded, especially the
+genome sequence: how many sequences are in the file? what is the format
+of the file?
+
+We can use grep `'>'` to extract the sequence names from a fasta file
+and then counting the number of lines, however
+we can use a fasta/fastq manipulation program like [seqkit](https://bioinf.shenwei.me/seqkit/),
+which can do this and much more:
+
+```{.bash}
+seqkit stats GCF_002263795.1_ARS-UCD1.2_genomic.fna
+```
+
+* `seqkit stats`: show statistics for the input file
+
+There are a lot of sequences in the file, you can inspect the sequence
+names with
+
+```{.bash}
+seqkit seq -n GCF_002263795.1_ARS-UCD1.2_genomic.fna
+```
+
+*   `seqkit seq`: transform sequences (extract ID, filter by length,
+    remove gaps, reverse complement...)
+      + `-n`: only print names/sequence headers
+      + `-i`: print IDs instead of full headers
+
+## Sequence report {.smaller}
+
+The `sequence_report.jsonl` file contains information about the sequences in the
+genome assembly. We can use `jq` to inspect the file, or we can use the
+[dataformat](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/dataformat/)
+command to transform this information in a table:
+
+```{.bash}
+dataformat tsv genome-seq --inputfile sequence_report.jsonl
+```
+
+* `dataformat tsv`: transform the input data in a tab-separated format
+  + `genome-seq`: the type of source data to transform
+  + `--inputfile`: the input file to transform
+  + `--fields`: specify the fields to include in the output
+  
+::: {.callout-note}
+The `dataformat` command requires JSON-lines formatted NCBI Datasets reports 
+into other formats. It can work in a pipe with the `datasets` command, however
+it requires the `--as-json-lines` option:
+
+```{.bash}
+datasets summary genome accession GCF_002263795.1 --as-json-lines | dataformat tsv genome | less -S
+```
+:::
+
+## Extract chromosomes from genome {.smaller}
+
+Suppose we need to get rid of *un-assembled sequences* from the genome:
+we can use `seqkit` to extract sequences by name.
+First, extract the sequences we want *by ids*:
+
+```{.bash}
+jq -c 'select(.role == "assembled-molecule")' sequence_report.jsonl \
+  | dataformat tsv genome-seq --fields refseq-seq-acc > ids.txt
+```
+
+* `-c`: compact output (required by `dataformat` as input)
+* `select(.role == "assembled-molecule")`: select only sequences that are
+  assembled molecules by their role
+* `refseq-seq-acc`: the field to extract from the input data
+
+Now we can use `seqkit` to extract the sequences by ids:
+
+```{.bash}
+seqkit grep -f ids.txt GCF_002263795.1_ARS-UCD1.2_genomic.fna > ARS-UCD1.2_chromosomes.fna
+```
+
+### Exercise
+
+* Can you create the *sequence ids* file using `awk`, `cut` or `grep` instead of `jq`?
+
+## Rename sequences {.smaller}
+
+Now the sequence names are the RefSeq accession numbers: 
+Let's rename the sequences to include the chromosome name as *id*: this
+could be done again with `seqkit`, with a text file with the
+old name as key and the new name as value:
+
+```{.bash}
+jq -c 'select(.role == "assembled-molecule")' sequence_report.jsonl \
+  | dataformat tsv genome-seq --fields refseq-seq-acc,chr-name > alias.txt
+```
+
+This is the same command we use before, but now we are extracting also the 
+chromosome number. Now we can use `seqkit` to rename the sequences:
+
+```{.bash}
+seqkit replace -p '^(\S+)(.+?)$' -r '{kv} \$1\${2}' -k alias.txt \
+  -o ARS-UCD1.2_chromosomes_renamed.fna ARS-UCD1.2_chromosomes.fna
+```
+
+* `seqkit replace`: replace patterns in sequences
+  + `-p`: the pattern to search for
+  + `-r`: the replacement pattern
+  + `-k`: the key-value file with the replacements
+  + `-o`: the output file
+  
+
+## Compress the genome sequence {.smaller}
+
+The last operation can be to compress the genome sequence file:
+we can do this with [`bgzip`](https://www.htslib.org/doc/bgzip.html)
+in order to have a compressed file that can be indexed with
+other software like `samtools`:
+
+```{.bash}
+bgzip ARS-UCD1.2_chromosomes_renamed.fna
+```
+
+Check that sequence names are in the proper format
+
+```{.bash}
+seqkit stats ARS-UCD1.2_chromosomes_renamed.fna.gz
+seqkit seq -n ARS-UCD1.2_chromosomes_renamed.fna.gz
+```
+
+### Excercise
+
+Can you optimize the previous commands to avoid creating intermediate files?
+
+:::{.callout-tip}
+You can use pipes to connect the output of a command to the input of another command.
+Ideally, the original file downloaded from NCBI should not be modified (but can
+be compressed)
+:::
+
+
+
+
