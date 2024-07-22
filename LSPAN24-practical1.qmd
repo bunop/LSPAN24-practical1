@@ -4,6 +4,7 @@ author: "Barbara Lazzari, Matilde Passamonti, Paolo Cozzi, Stefano Capomaccio"
 css: styles.css
 format:
   revealjs:
+    logo: "img/Logo UC orizzontale POSITIVO 540C.png"
     slide-number: c/t
     chalkboard: true
     footer: "Livestock pangenomes 2024 - Practical 1 - 2024/07/22"
